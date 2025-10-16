@@ -5,159 +5,304 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Propuesta Comercial - Telekos</title>
 <style>
-body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #e9f3ff 0%, #f9fbff 100%); color: #222; margin:0; padding:0;}
-header { background-color: #003b75; color:white; text-align:center; padding:25px 10px; box-shadow:0 2px 8px rgba(0,0,0,0.2);}
-header h1 { margin:0; font-size:1.9rem;}
-.timeline { display:flex; justify-content:space-between; align-items:center; max-width:1000px; margin:20px auto; padding:10px 0; position:relative;}
-.timeline::before { content:''; position:absolute; top:50%; left:30px; right:30px; height:4px; background:#c9defa; z-index:0; transform:translateY(-50%);}
-.step { position:relative; text-align:center; z-index:1; flex:1; color:#004b8d; font-weight:600;}
-.circle { width:28px; height:28px; background:#c9defa; border-radius:50%; margin:0 auto 6px; border:3px solid #004b8d; transition:all 0.3s;}
-.step.active .circle { background:#0074e1; border-color:#005bb5; box-shadow:0 0 8px rgba(0,116,225,0.5);}
-.step.active { color:#0074e1;}
-details { background:white; margin:20px auto; padding:15px 20px; border-radius:10px; max-width:1000px; box-shadow:0 3px 10px rgba(0,0,0,0.08); border-left:4px solid #004b8d; transition: all 0.2s ease-in-out;}
-details:hover { background-color:#f2f8ff; border-left:4px solid #0080ff;}
-summary { font-size:1.15rem; font-weight:600; color:#004b8d; cursor:pointer; outline:none; padding:10px 0; transition:color 0.2s ease-in-out;}
-details:hover summary { color:#0080ff;}
-label { display:block; font-weight:600; margin-top:8px; color:#003b75;}
-input, textarea { width:100%; padding:8px; border-radius:8px; border:1px solid #ccd9e8; margin-bottom:10px; font-size:0.9rem; background-color:#fdfdfd;}
-input:focus, textarea:focus { border-color:#0074e1; outline:none; box-shadow:0 0 4px rgba(0,116,225,0.3);}
-table { width:100%; border-collapse:collapse; margin:10px 0;}
-th, td { border:1px solid #dee7f3; padding:8px; text-align:center;}
-th { background-color:#e3f2fd; color:#003b75;}
-.btn { background-color:#004b8d; color:white; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:600; margin-top:10px; transition: background 0.3s;}
-.btn:hover { background-color:#0074e1;}
-.totales { font-weight:bold; text-align:right; color:#003b75;}
-mark { background-color:#d9edff; color:#003b75; padding:2px 5px; border-radius:4px;}
-.footer { text-align:center; font-size:0.8rem; color:#666; margin:40px 0 20px;}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e9f3ff 0%, #f9fbff 100%);
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #003b75;
+  color: white;
+  text-align: center;
+  padding: 25px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 10px 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  right: 30px;
+  height: 4px;
+  background: #c9defa;
+  z-index: 0;
+  transform: translateY(-50%);
+}
+.step {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  flex: 1;
+  color: #004b8d;
+  font-weight: 600;
+}
+.circle {
+  width: 28px;
+  height: 28px;
+  background: #c9defa;
+  border-radius: 50%;
+  margin: 0 auto 6px;
+  border: 3px solid #004b8d;
+  transition: all 0.3s;
+}
+.step.active .circle {
+  background: #0074e1;
+  border-color: #005bb5;
+  box-shadow: 0 0 8px rgba(0,116,225,0.5);
+}
+.step.active {
+  color: #0074e1;
+}
+details {
+  background: white;
+  margin: 20px auto;
+  padding: 15px 20px;
+  border-radius: 10px;
+  max-width: 1000px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  border-left: 4px solid #004b8d;
+  transition: all 0.2s ease-in-out;
+}
+details:hover {
+  background-color: #f2f8ff;
+  border-left: 4px solid #0080ff;
+}
+summary {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #004b8d;
+  cursor: pointer;
+  outline: none;
+  padding: 10px 0;
+  transition: color 0.2s ease-in-out;
+}
+details:hover summary {
+  color: #0080ff;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #003b75;
+}
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccd9e8;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  background-color: #fdfdfd;
+}
+input:focus, textarea:focus {
+  border-color: #0074e1;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0,116,225,0.3);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+th, td {
+  border: 1px solid #dee7f3;
+  padding: 8px;
+  text-align: center;
+}
+th {
+  background-color: #e3f2fd;
+  color: #003b75;
+}
+.btn {
+  background-color: #004b8d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background-color: #0074e1;
+}
+.totales {
+  font-weight: bold;
+  text-align: right;
+  color: #003b75;
+}
+mark {
+  background-color: #d9edff;
+  color: #003b75;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666;
+  margin: 40px 0 20px;
+}
 </style>
 </head>
 <body>
 
 <header>
-<h1>Propuesta Comercial - Telekos</h1>
+  <h1>Propuesta Comercial - Telekos</h1>
 </header>
 
 <div class="timeline">
-<div class="step" data-step="1"><div class="circle"></div>Cliente</div>
-<div class="step" data-step="2"><div class="circle"></div>Propuesta</div>
-<div class="step" data-step="3"><div class="circle"></div>Estudio</div>
-<div class="step" data-step="4"><div class="circle"></div>Aprobación</div>
-<div class="step" data-step="5"><div class="circle"></div>Instalación</div>
-<div class="step" data-step="6"><div class="circle"></div>Activo</div>
+  <div class="step" data-step="1"><div class="circle"></div>Cliente</div>
+  <div class="step" data-step="2"><div class="circle"></div>Propuesta</div>
+  <div class="step" data-step="3"><div class="circle"></div>Estudio</div>
+  <div class="step" data-step="4"><div class="circle"></div>Aprobación</div>
+  <div class="step" data-step="5"><div class="circle"></div>Instalación</div>
+  <div class="step" data-step="6"><div class="circle"></div>Activo</div>
 </div>
 
 <form action="https://formsubmit.co/soporte@telekos.com" method="POST" id="telekosForm">
-<input type="hidden" name="_next" value="https://soportetelekos-spec.github.io/Formulario_centralitas/gracias.html">
+  <!-- REDIRECCIÓN Y FORMATO HTML -->
+  <input type="hidden" name="_next" value="https://soportetelekos-spec.github.io/Formulario_centralitas/gracias.html">
+  <input type="hidden" name="_html" value="true">
+  <input type="hidden" name="_template" value="table">
 
-<!-- Inputs ocultos para enviar tablas HTML -->
-<input type="hidden" name="tabla_servicios_email" id="tablaServiciosEmail">
-<input type="hidden" name="tabla_estudio_email" id="tablaEstudioEmail">
+  <!-- Campo donde se unirá todo el HTML para enviar -->
+  <input type="hidden" id="tablaServiciosEmail" name="tablaServiciosEmail">
 
-<!-- Datos del Cliente -->
-<details open>
-<summary>Datos del Cliente</summary>
-<label>Nombre de la Empresa:</label><input type="text" name="empresa" id="empresa" required>
-<label>Atención de:</label><input type="text" name="atencion">
-<label>Domicilio:</label><input type="text" name="domicilio">
-<label>CP / Provincia / Localidad:</label><input type="text" name="cp_prov_localidad">
-<label>NIF / CIF / NIE:</label><input type="text" name="nif">
-<label>Teléfono:</label><input type="text" name="telefono">
-<label>Email:</label><input type="email" name="email_cliente">
-</details>
+  <!-- Datos del Cliente -->
+  <details open>
+    <summary>Datos del Cliente</summary>
+    <label>Nombre de la Empresa:</label><input type="text" name="empresa" id="empresa" required>
+    <label>Atención de:</label><input type="text" name="atencion">
+    <label>Domicilio:</label><input type="text" name="domicilio">
+    <label>CP / Provincia / Localidad:</label><input type="text" name="cp_prov_localidad">
+    <label>NIF / CIF / NIE:</label><input type="text" name="nif">
+    <label>Teléfono:</label><input type="text" name="telefono">
+    <label>Email:</label><input type="email" name="email_cliente">
+  </details>
 
-<!-- Comercial -->
-<details>
-<summary>Comercial Telekos</summary>
-<label>Nombre y Apellidos:</label><input type="text" name="comercial_nombre">
-<label>Teléfono Móvil:</label><input type="text" name="comercial_movil">
-<label>Email:</label><input type="email" name="comercial_email">
-<label>Teléfono Fijo:</label><input type="text" name="comercial_fijo" value="91 088 50 50">
-</details>
+  <!-- Comercial -->
+  <details>
+    <summary>Comercial Telekos</summary>
+    <label>Nombre y Apellidos:</label><input type="text" name="comercial_nombre">
+    <label>Teléfono Móvil:</label><input type="text" name="comercial_movil">
+    <label>Email:</label><input type="email" name="comercial_email">
+    <label>Teléfono Fijo:</label><input type="text" name="comercial_fijo" value="91 088 50 50">
+  </details>
 
-<!-- Servicios Contratados -->
-<details>
-<summary>Servicios Contratados</summary>
-<table id="tablaServicios">
-<thead>
-<tr><th>Cant.</th><th>Servicio</th><th>Coste Mensual (€)</th><th>Total (€)</th><th>Eliminar</th></tr>
-</thead>
-<tbody>
-<tr>
-<td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-<td><input type="text" name="servicio[]" placeholder="Centralita en la nube, SMS, etc."></td>
-<td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
-<td class="total">0.00</td>
-<td><button type="button" class="btn eliminar">X</button></td>
-</tr>
-</tbody>
-</table>
-<button type="button" class="btn" id="agregarServicio">➕ Agregar servicio</button>
-<label>Coste de instalación (€ IVA incl.):</label><input type="number" step="0.01" id="instalacion" name="instalacion" value="0">
-<p class="totales">Subtotal mensual: <span id="subtotal">0.00</span> €</p>
-<p class="totales">IVA (21%): <span id="iva">0.00</span> €</p>
-<p class="totales">Total mensual con IVA: <span id="totalConIVA">0.00</span> €</p>
-</details>
+  <!-- Servicios -->
+  <details>
+    <summary>Servicios Contratados</summary>
+    <table id="tablaServicios">
+      <thead>
+        <tr>
+          <th>Cant.</th>
+          <th>Servicio</th>
+          <th>Coste Mensual (€)</th>
+          <th>Total (€)</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
+          <td><input type="text" name="servicio[]" placeholder="Centralita en la nube, SMS, etc."></td>
+          <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
+          <td class="total">0.00</td>
+          <td><button type="button" class="btn eliminar">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn" id="agregarServicio">➕ Agregar servicio</button>
+    <label>Coste de instalación (€ IVA incl.):</label><input type="number" step="0.01" id="instalacion" name="instalacion" value="0">
+    <p class="totales">Subtotal mensual: <span id="subtotal">0.00</span> €</p>
+    <p class="totales">IVA (21%): <span id="iva">0.00</span> €</p>
+    <p class="totales">Total mensual con IVA: <span id="totalConIVA">0.00</span> €</p>
+  </details>
 
-<!-- Estudio Cliente -->
-<details>
-<summary>Estudio del Cliente y Amortización</summary>
-<h3 style="color:#004b8d;">Comparativa de Gastos</h3>
-<table id="tablaEstudio">
-<thead>
-<tr><th>Servicio</th><th>Gasto Actual (€)</th><th>Nuevo Gasto (€)</th><th>Ahorro Mensual (€)</th><th>Eliminar</th></tr>
-</thead>
-<tbody>
-<tr>
-<td><input type="text" name="servicio_estudio[]" placeholder="Telefonía fija, móvil, etc."></td>
-<td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
-<td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
-<td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
-<td><button type="button" class="btn eliminarEstudio">X</button></td>
-</tr>
-</tbody>
-</table>
-<button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
-<p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
+  <!-- Estudio Cliente -->
+  <details>
+    <summary>Estudio del Cliente y Amortización</summary>
+    <h3 style="color:#004b8d;">Comparativa de Gastos</h3>
+    <table id="tablaEstudio">
+      <thead>
+        <tr>
+          <th>Servicio</th>
+          <th>Gasto Actual (€)</th>
+          <th>Nuevo Gasto (€)</th>
+          <th>Ahorro Mensual (€)</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" name="servicio_estudio[]" placeholder="Telefonía fija, móvil, etc."></td>
+          <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
+          <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
+          <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
+          <td><button type="button" class="btn eliminarEstudio">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
 
-<h3 style="color:#004b8d;">Consumo Telefónico Estimado</h3>
-<textarea name="minutos_estimados" rows="3" placeholder="Ejemplo: 2.500 min/mes fijos – móviles."></textarea>
+    <p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
 
-<h3 style="color:#004b8d;">Cuadro de Amortización</h3>
-<table>
-<tr><th>Concepto</th><th>Importe (€)</th></tr>
-<tr><td>Inversión en equipamiento</td><td><input type="number" step="0.01" id="inversion"></td></tr>
-<tr><td>Coste de instalación y configuración</td><td><input type="number" step="0.01" id="configuracion"></td></tr>
-<tr><td>Penalización en actual operadora</td><td><input type="number" step="0.01" id="penalizacion"></td></tr>
-</table>
-<label>Tiempo de amortización (meses):</label>
-<input type="number" step="0.1" id="tiempoAmortizacion" placeholder="Escriba los meses" />
-</details>
+    <h3 style="color:#004b8d;">Consumo Telefónico Estimado</h3>
+    <textarea name="minutos_estimados" rows="3" placeholder="Ejemplo: 2.500 min/mes fijos – móviles."></textarea>
 
-<!-- Observaciones -->
-<details>
-<summary>Observaciones y Legales</summary>
-<textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
-<p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
-</details>
+    <h3 style="color:#004b8d;">Cuadro de Amortización</h3>
+    <table>
+      <tr><th>Concepto</th><th>Importe (€)</th></tr>
+      <tr><td>Inversión en equipamiento</td><td><input type="number" step="0.01" id="inversion"></td></tr>
+      <tr><td>Coste de instalación y configuración</td><td><input type="number" step="0.01" id="configuracion"></td></tr>
+      <tr><td>Penalización en actual operadora</td><td><input type="number" step="0.01" id="penalizacion"></td></tr>
+    </table>
+    <label>Tiempo de amortización (meses):</label>
+    <input type="number" step="0.1" id="tiempoAmortizacion" placeholder="Escriba los meses" />
+  </details>
 
-<!-- Firma Cliente -->
-<details>
-<summary>Firma Cliente </summary>
-<label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
-<input type="text" name="nombre_cliente">
-<label>Fecha:</label>
-<input type="date" name="fecha_cliente">
-</details>
+  <!-- Observaciones -->
+  <details>
+    <summary>Observaciones y Legales</summary>
+    <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
+    <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
+  </details>
 
-<div style="text-align:center;">
-<button type="submit" class="btn">📧 Enviar Formulario</button>
-<button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
-</div>
+  <!-- Firma Cliente -->
+  <details>
+    <summary>Firma Cliente </summary>
+    <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
+    <input type="text" name="nombre_cliente">
+    <label>Fecha:</label>
+    <input type="date" name="fecha_cliente">
+  </details>
+
+  <div style="text-align:center;">
+    <button type="submit" class="btn">📧 Enviar Formulario</button>
+    <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+  </div>
 
 </form>
 
 <div class="footer">
-<p>Telekos © 2025 — <a href="https://www.telekos.com" target="_blank">www.telekos.com</a></p>
+  <p>Telekos © 2025 — <a href="https://www.telekos.com" target="_blank">www.telekos.com</a></p>
 </div>
 
 <script>
@@ -181,7 +326,7 @@ const penalizacionEl = document.getElementById("penalizacion");
 // Timeline
 const steps = document.querySelectorAll(".step");
 
-// CALCULAR TOTALES
+// CALCULOS
 function calcularTotales() {
   let subtotal = 0;
   tablaServicios.querySelectorAll("tr").forEach(row => {
@@ -200,7 +345,6 @@ function calcularTotales() {
   actualizarTimeline();
 }
 
-// CALCULAR ESTUDIO
 function calcularEstudio() {
   let ahorroTotalMensual = 0;
   tablaEstudio.querySelectorAll("tr").forEach(row => {
@@ -227,22 +371,22 @@ function calcularEstudio() {
 agregarBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
   fila.innerHTML = `
-    <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-    <td><input type="text" name="servicio[]" placeholder="Nuevo servicio"></td>
-    <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
-    <td class="total">0.00</td>
-    <td><button type="button" class="btn eliminar">X</button></td>`;
+  <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
+  <td><input type="text" name="servicio[]" placeholder="Nuevo servicio"></td>
+  <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
+  <td class="total">0.00</td>
+  <td><button type="button" class="btn eliminar">X</button></td>`;
   tablaServicios.appendChild(fila);
 });
 
 agregarEstudioBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
   fila.innerHTML = `
-    <td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
-    <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
-    <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
-    <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
-    <td><button type="button" class="btn eliminarEstudio">X</button></td>`;
+  <td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
+  <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
+  <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
+  <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
+  <td><button type="button" class="btn eliminarEstudio">X</button></td>`;
   tablaEstudio.appendChild(fila);
 });
 
@@ -260,7 +404,7 @@ tablaEstudio.addEventListener("click", e => {
   }
 });
 
-// INPUTS
+// INPUTS CALCULOS
 tablaServicios.addEventListener("input", calcularTotales);
 instalacionEl.addEventListener("input", calcularTotales);
 tablaEstudio.addEventListener("input", calcularEstudio);
@@ -295,46 +439,43 @@ function actualizarTimeline() {
   steps[5].classList.toggle("active", fecha !== "");
 }
 
-// FUNCIONES PARA EMAIL
+// GENERAR TABLAS HTML PARA EMAIL
 function generarTablaServiciosEmail() {
-  let html = '<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">';
-  html += '<tr><th>Cant.</th><th>Servicio</th><th>Coste Mensual (€)</th><th>Total (€)</th></tr>';
-  tablaServicios.querySelectorAll('tr').forEach(row => {
-    const cant = row.querySelector('.cant').value || '';
-    const servicio = row.querySelector('input[name="servicio[]"]').value || '';
-    const coste = row.querySelector('.coste').value || '';
-    const total = row.querySelector('.total').textContent || '';
-    html += `<tr><td>${cant}</td><td>${servicio}</td><td>${coste}</td><td>${total}</td></tr>`;
+  let htmlServicios = `<table border="1" cellpadding="5" cellspacing="0"><tr>
+  <th>Cant.</th><th>Servicio</th><th>Coste Mensual (€)</th><th>Total (€)</th></tr>`;
+  tablaServicios.querySelectorAll("tr").forEach(row => {
+    const cant = row.querySelector(".cant").value || "";
+    const serv = row.querySelector("input[name='servicio[]']").value || "";
+    const coste = row.querySelector(".coste").value || "";
+    const total = row.querySelector(".total").textContent || "";
+    htmlServicios += `<tr><td>${cant}</td><td>${serv}</td><td>${coste}</td><td>${total}</td></tr>`;
   });
-  html += '</table>';
-  document.getElementById('tablaServiciosEmail').value = html;
+  htmlServicios += `</table>`;
+
+  let htmlEstudio = `<table border="1" cellpadding="5" cellspacing="0"><tr>
+  <th>Servicio</th><th>Gasto Actual (€)</th><th>Nuevo Gasto (€)</th><th>Ahorro Mensual (€)</th></tr>`;
+  tablaEstudio.querySelectorAll("tr").forEach(row => {
+    const serv = row.querySelector("input[name='servicio_estudio[]']").value || "";
+    const actual = row.querySelector(".gasto_actual").value || "";
+    const nuevo = row.querySelector(".nuevo_gasto").value || "";
+    const ahorro = row.querySelector(".ahorro_mensual").value || "";
+    htmlEstudio += `<tr><td>${serv}</td><td>${actual}</td><td>${nuevo}</td><td>${ahorro}</td></tr>`;
+  });
+  htmlEstudio += `</table>`;
+
+  document.getElementById('tablaServiciosEmail').value = `<h3>Servicios Contratados</h3>${htmlServicios}<h3>Estudio Cliente</h3>${htmlEstudio}`;
 }
 
-function generarTablaEstudioEmail() {
-  let html = '<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">';
-  html += '<tr><th>Servicio</th><th>Gasto Actual (€)</th><th>Nuevo Gasto (€)</th><th>Ahorro Mensual (€)</th></tr>';
-  tablaEstudio.querySelectorAll('tr').forEach(row => {
-    const servicio = row.querySelector('input[name="servicio_estudio[]"]').value || '';
-    const actual = row.querySelector('.gasto_actual').value || '';
-    const nuevo = row.querySelector('.nuevo_gasto').value || '';
-    const ahorro = row.querySelector('.ahorro_mensual').value || '';
-    html += `<tr><td>${servicio}</td><td>${actual}</td><td>${nuevo}</td><td>${ahorro}</td></tr>`;
-  });
-  html += '</table>';
-  document.getElementById('tablaEstudioEmail').value = html;
-}
+document.getElementById('telekosForm').addEventListener('submit', generarTablaServiciosEmail);
 
-// GENERAR TABLAS ANTES DE ENVIAR
-document.getElementById('telekosForm').addEventListener('submit', function() {
-  generarTablaServiciosEmail();
-  generarTablaEstudioEmail();
-});
-
+// CALCULO INICIAL
 calcularTotales();
 calcularEstudio();
 </script>
 
 </body>
 </html>
+
+
 
 
