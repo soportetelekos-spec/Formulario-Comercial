@@ -177,14 +177,12 @@ mark {
 </div>
 
 <form action="https://formsubmit.co/soporte@telekos.com" method="POST" id="telekosForm">
-  <!-- REDIRECCIÓN Y FORMATO HTML -->
+  <!-- Redirección y formato HTML -->
   <input type="hidden" name="_next" value="https://soportetelekos-spec.github.io/Formulario-Comercial/gracias.html">
-  
   <input type="hidden" name="_html" value="true">
   <input type="hidden" name="_template" value="table">
-
-  <!-- Campo donde se unirá todo el HTML para enviar -->
-  <input type="hidden" id="tablaServiciosEmail" name="tablaServiciosEmail">
+  <!-- Cuerpo del email -->
+  <input type="hidden" name="_body" id="bodyEmail">
 
   <!-- Datos del Cliente -->
   <details open>
@@ -299,7 +297,6 @@ mark {
     <button type="submit" class="btn">📧 Enviar Formulario</button>
     <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
   </div>
-
 </form>
 
 <div class="footer">
@@ -307,27 +304,23 @@ mark {
 </div>
 
 <script>
-// Variables servicios
+// Variables
 const tablaServicios = document.getElementById("tablaServicios").querySelector("tbody");
+const tablaEstudio = document.getElementById("tablaEstudio").querySelector("tbody");
 const agregarBtn = document.getElementById("agregarServicio");
+const agregarEstudioBtn = document.getElementById("agregarEstudio");
 const subtotalEl = document.getElementById("subtotal");
 const ivaEl = document.getElementById("iva");
 const totalConIVAEl = document.getElementById("totalConIVA");
 const instalacionEl = document.getElementById("instalacion");
-
-// Variables estudio
-const tablaEstudio = document.getElementById("tablaEstudio").querySelector("tbody");
-const agregarEstudioBtn = document.getElementById("agregarEstudio");
 const ahorroAnualEl = document.getElementById("ahorro_anual");
 const tiempoAmortizacionEl = document.getElementById("tiempoAmortizacion");
 const inversionEl = document.getElementById("inversion");
 const configuracionEl = document.getElementById("configuracion");
 const penalizacionEl = document.getElementById("penalizacion");
-
-// Timeline
 const steps = document.querySelectorAll(".step");
 
-// CALCULOS
+// Funciones de cálculo
 function calcularTotales() {
   let subtotal = 0;
   tablaServicios.querySelectorAll("tr").forEach(row => {
@@ -368,7 +361,7 @@ function calcularEstudio() {
   actualizarTimeline();
 }
 
-// AGREGAR FILAS
+// Agregar filas
 agregarBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
   fila.innerHTML = `
@@ -391,7 +384,7 @@ agregarEstudioBtn.addEventListener("click", () => {
   tablaEstudio.appendChild(fila);
 });
 
-// ELIMINAR FILAS
+// Eliminar filas
 tablaServicios.addEventListener("click", e => {
   if(e.target.classList.contains("eliminar")) {
     e.target.closest("tr").remove();
@@ -405,7 +398,7 @@ tablaEstudio.addEventListener("click", e => {
   }
 });
 
-// INPUTS CALCULOS
+// Inputs cálculo
 tablaServicios.addEventListener("input", calcularTotales);
 instalacionEl.addEventListener("input", calcularTotales);
 tablaEstudio.addEventListener("input", calcularEstudio);
@@ -413,7 +406,7 @@ inversionEl.addEventListener("input", calcularEstudio);
 configuracionEl.addEventListener("input", calcularEstudio);
 penalizacionEl.addEventListener("input", calcularEstudio);
 
-// TIMELINE
+// Timeline
 function actualizarTimeline() {
   const clienteCompletado = document.getElementById("empresa").value.trim() !== "";
   steps[0].classList.toggle("active", clienteCompletado);
@@ -440,48 +433,68 @@ function actualizarTimeline() {
   steps[5].classList.toggle("active", fecha !== "");
 }
 
-// GENERAR TABLAS HTML PARA EMAIL
-function generarTablaServiciosEmail() {
-  let htmlServicios = `<table border="1" cellpadding="5" cellspacing="0"><tr>
+// Generar cuerpo del email completo
+function generarBodyEmail() {
+  let html = `<h2>Datos del Cliente</h2>`;
+  html += `<p><strong>Empresa:</strong> ${document.getElementById('empresa').value}</p>`;
+  html += `<p><strong>Atención:</strong> ${document.querySelector("input[name='atencion']").value}</p>`;
+  html += `<p><strong>Domicilio:</strong> ${document.querySelector("input[name='domicilio']").value}</p>`;
+  html += `<p><strong>CP / Provincia / Localidad:</strong> ${document.querySelector("input[name='cp_prov_localidad']").value}</p>`;
+  html += `<p><strong>NIF / CIF / NIE:</strong> ${document.querySelector("input[name='nif']").value}</p>`;
+  html += `<p><strong>Teléfono:</strong> ${document.querySelector("input[name='telefono']").value}</p>`;
+  html += `<p><strong>Email:</strong> ${document.querySelector("input[name='email_cliente']").value}</p>`;
+
+  html += `<h2>Comercial Telekos</h2>`;
+  html += `<p><strong>Nombre y Apellidos:</strong> ${document.querySelector("input[name='comercial_nombre']").value}</p>`;
+  html += `<p><strong>Móvil:</strong> ${document.querySelector("input[name='comercial_movil']").value}</p>`;
+  html += `<p><strong>Email:</strong> ${document.querySelector("input[name='comercial_email']").value}</p>`;
+  html += `<p><strong>Fijo:</strong> ${document.querySelector("input[name='comercial_fijo']").value}</p>`;
+
+  // Tabla servicios
+  html += `<h3>Servicios Contratados</h3><table border="1" cellpadding="5" cellspacing="0"><tr>
   <th>Cant.</th><th>Servicio</th><th>Coste Mensual (€)</th><th>Total (€)</th></tr>`;
   tablaServicios.querySelectorAll("tr").forEach(row => {
-    const cant = row.querySelector(".cant").value || "";
-    const serv = row.querySelector("input[name='servicio[]']").value || "";
-    const coste = row.querySelector(".coste").value || "";
-    const total = row.querySelector(".total").textContent || "";
-    htmlServicios += `<tr><td>${cant}</td><td>${serv}</td><td>${coste}</td><td>${total}</td></tr>`;
+    html += `<tr>`;
+    html += `<td>${row.querySelector(".cant").value}</td>`;
+    html += `<td>${row.querySelector("input[name='servicio[]']").value}</td>`;
+    html += `<td>${row.querySelector(".coste").value}</td>`;
+    html += `<td>${row.querySelector(".total").textContent}</td>`;
+    html += `</tr>`;
   });
-  htmlServicios += `</table>`;
+  html += `</table>`;
 
-  let htmlEstudio = `<table border="1" cellpadding="5" cellspacing="0"><tr>
+  // Tabla estudio
+  html += `<h3>Estudio Cliente</h3><table border="1" cellpadding="5" cellspacing="0"><tr>
   <th>Servicio</th><th>Gasto Actual (€)</th><th>Nuevo Gasto (€)</th><th>Ahorro Mensual (€)</th></tr>`;
   tablaEstudio.querySelectorAll("tr").forEach(row => {
-    const serv = row.querySelector("input[name='servicio_estudio[]']").value || "";
-    const actual = row.querySelector(".gasto_actual").value || "";
-    const nuevo = row.querySelector(".nuevo_gasto").value || "";
-    const ahorro = row.querySelector(".ahorro_mensual").value || "";
-    htmlEstudio += `<tr><td>${serv}</td><td>${actual}</td><td>${nuevo}</td><td>${ahorro}</td></tr>`;
+    html += `<tr>`;
+    html += `<td>${row.querySelector("input[name='servicio_estudio[]']").value}</td>`;
+    html += `<td>${row.querySelector(".gasto_actual").value}</td>`;
+    html += `<td>${row.querySelector(".nuevo_gasto").value}</td>`;
+    html += `<td>${row.querySelector(".ahorro_mensual").value}</td>`;
+    html += `</tr>`;
   });
-  htmlEstudio += `</table>`;
+  html += `</table>`;
 
-  document.getElementById('tablaServiciosEmail').value = `<h3>Servicios Contratados</h3>${htmlServicios}<h3>Estudio Cliente</h3>${htmlEstudio}`;
+  // Observaciones
+  html += `<h3>Observaciones</h3>`;
+  html += `<p>${document.querySelector("textarea[name='observaciones']").value}</p>`;
+
+  // Firma
+  html += `<h3>Firma Cliente</h3>`;
+  html += `<p><strong>Nombre/Firma:</strong> ${document.querySelector("input[name='nombre_cliente']").value}</p>`;
+  html += `<p><strong>Fecha:</strong> ${document.querySelector("input[name='fecha_cliente']").value}</p>`;
+
+  document.getElementById('bodyEmail').value = html;
 }
 
-document.getElementById('telekosForm').addEventListener('submit', generarTablaServiciosEmail);
+// Enviar
+document.getElementById('telekosForm').addEventListener('submit', generarBodyEmail);
 
-// CALCULO INICIAL
+// Inicial
 calcularTotales();
 calcularEstudio();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
