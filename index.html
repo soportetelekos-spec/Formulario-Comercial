@@ -59,6 +59,10 @@ header h1 {
   margin: 0 auto 6px;
   border: 3px solid #004b8d;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
 }
 .step.active .circle {
   background: #0074e1;
@@ -181,7 +185,6 @@ mark {
   <input type="hidden" name="_next" value="https://soportetelekos-spec.github.io/Formulario-Comercial/gracias.html">
   <input type="hidden" name="_html" value="true">
   <input type="hidden" name="_template" value="table">
-  <!-- Cuerpo del email -->
   <input type="hidden" name="_body" id="bodyEmail">
 
   <!-- Datos del Cliente -->
@@ -260,31 +263,16 @@ mark {
       </tbody>
     </table>
     <button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
-
     <p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
-
-    <h3 style="color:#004b8d;">Consumo Telefónico Estimado</h3>
-    <textarea name="minutos_estimados" rows="3" placeholder="Ejemplo: 2.500 min/mes fijos – móviles."></textarea>
-
-    <h3 style="color:#004b8d;">Cuadro de Amortización</h3>
-    <table>
-      <tr><th>Concepto</th><th>Importe (€)</th></tr>
-      <tr><td>Inversión en equipamiento</td><td><input type="number" step="0.01" id="inversion"></td></tr>
-      <tr><td>Coste de instalación y configuración</td><td><input type="number" step="0.01" id="configuracion"></td></tr>
-      <tr><td>Penalización en actual operadora</td><td><input type="number" step="0.01" id="penalizacion"></td></tr>
-    </table>
-    <label>Tiempo de amortización (meses):</label>
-    <input type="number" step="0.1" id="tiempoAmortizacion" placeholder="Escriba los meses" />
   </details>
 
-  <!-- Observaciones -->
+  <!-- Observaciones y Firma -->
   <details>
     <summary>Observaciones y Legales</summary>
     <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
     <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
   </details>
 
-  <!-- Firma Cliente -->
   <details>
     <summary>Firma Cliente </summary>
     <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
@@ -314,10 +302,6 @@ const ivaEl = document.getElementById("iva");
 const totalConIVAEl = document.getElementById("totalConIVA");
 const instalacionEl = document.getElementById("instalacion");
 const ahorroAnualEl = document.getElementById("ahorro_anual");
-const tiempoAmortizacionEl = document.getElementById("tiempoAmortizacion");
-const inversionEl = document.getElementById("inversion");
-const configuracionEl = document.getElementById("configuracion");
-const penalizacionEl = document.getElementById("penalizacion");
 const steps = document.querySelectorAll(".step");
 
 // Funciones de cálculo
@@ -350,150 +334,58 @@ function calcularEstudio() {
   });
   const ahorroAnual = ahorroTotalMensual * 12;
   ahorroAnualEl.textContent = ahorroAnual.toFixed(2);
-  const inversion = parseFloat(inversionEl.value) || 0;
-  const configuracion = parseFloat(configuracionEl.value) || 0;
-  const penalizacion = parseFloat(penalizacionEl.value) || 0;
-  const totalInversion = inversion + configuracion + penalizacion;
-  if (tiempoAmortizacionEl.value.trim() === "") {
-    const meses = ahorroTotalMensual > 0 ? totalInversion / ahorroTotalMensual : 0;
-    tiempoAmortizacionEl.value = meses.toFixed(1);
-  }
-  actualizarTimeline();
 }
 
-// Agregar filas
+// Timeline
+function actualizarTimeline() {
+  steps[0].classList.toggle("active", document.getElementById("empresa").value.trim() !== "");
+  steps[1].classList.toggle("active", Array.from(tablaServicios.querySelectorAll(".coste")).some(c => parseFloat(c.value) > 0));
+  steps[2].classList.toggle("active", Array.from(tablaEstudio.querySelectorAll(".gasto_actual")).some(g => g.value.trim() !== ""));
+  steps[3].classList.toggle("active", document.querySelector("textarea[name='observaciones']").value.trim() !== "");
+  steps[4].classList.toggle("active", parseFloat(instalacionEl.value) > 0);
+  steps[5].classList.toggle("active", document.querySelector("input[name='fecha_cliente']").value.trim() !== "");
+}
+
+// Event listeners
 agregarBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
-  fila.innerHTML = `
-  <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-  <td><input type="text" name="servicio[]" placeholder="Nuevo servicio"></td>
-  <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
-  <td class="total">0.00</td>
-  <td><button type="button" class="btn eliminar">X</button></td>`;
+  fila.innerHTML = `<td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
+    <td><input type="text" name="servicio[]" placeholder="Nuevo servicio"></td>
+    <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
+    <td class="total">0.00</td>
+    <td><button type="button" class="btn eliminar">X</button></td>`;
   tablaServicios.appendChild(fila);
 });
-
 agregarEstudioBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
-  fila.innerHTML = `
-  <td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
-  <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
-  <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
-  <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
-  <td><button type="button" class="btn eliminarEstudio">X</button></td>`;
+  fila.innerHTML = `<td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
+    <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
+    <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
+    <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
+    <td><button type="button" class="btn eliminarEstudio">X</button></td>`;
   tablaEstudio.appendChild(fila);
 });
 
 // Eliminar filas
 tablaServicios.addEventListener("click", e => {
-  if(e.target.classList.contains("eliminar")) {
-    e.target.closest("tr").remove();
-    calcularTotales();
-  }
+  if(e.target.classList.contains("eliminar")) { e.target.closest("tr").remove(); calcularTotales(); }
 });
 tablaEstudio.addEventListener("click", e => {
-  if(e.target.classList.contains("eliminarEstudio")) {
-    e.target.closest("tr").remove();
-    calcularEstudio();
-  }
+  if(e.target.classList.contains("eliminarEstudio")) { e.target.closest("tr").remove(); calcularEstudio(); }
 });
 
 // Inputs cálculo
 tablaServicios.addEventListener("input", calcularTotales);
 instalacionEl.addEventListener("input", calcularTotales);
 tablaEstudio.addEventListener("input", calcularEstudio);
-inversionEl.addEventListener("input", calcularEstudio);
-configuracionEl.addEventListener("input", calcularEstudio);
-penalizacionEl.addEventListener("input", calcularEstudio);
-
-// Timeline
-function actualizarTimeline() {
-  const clienteCompletado = document.getElementById("empresa").value.trim() !== "";
-  steps[0].classList.toggle("active", clienteCompletado);
-
-  let propuestaCompletada = false;
-  tablaServicios.querySelectorAll("tr").forEach(row => {
-    if(row.querySelector(".coste").value.trim() !== "" && parseFloat(row.querySelector(".coste").value) > 0) propuestaCompletada = true;
-  });
-  steps[1].classList.toggle("active", propuestaCompletada);
-
-  let estudioCompletado = false;
-  tablaEstudio.querySelectorAll("tr").forEach(row => {
-    if(row.querySelector(".gasto_actual").value.trim() !== "" || row.querySelector(".nuevo_gasto").value.trim() !== "") estudioCompletado = true;
-  });
-  steps[2].classList.toggle("active", estudioCompletado);
-
-  const observaciones = document.querySelector("textarea[name='observaciones']").value.trim();
-  steps[3].classList.toggle("active", observaciones.length > 0);
-
-  const instalacionOk = parseFloat(instalacionEl.value) > 0 || parseFloat(inversionEl.value) > 0;
-  steps[4].classList.toggle("active", instalacionOk);
-
-  const fecha = document.querySelector("input[name='fecha_cliente']").value.trim();
-  steps[5].classList.toggle("active", fecha !== "");
-}
-
-// Generar cuerpo del email completo
-function generarBodyEmail() {
-  let html = `<h2>Datos del Cliente</h2>`;
-  html += `<p><strong>Empresa:</strong> ${document.getElementById('empresa').value}</p>`;
-  html += `<p><strong>Atención:</strong> ${document.querySelector("input[name='atencion']").value}</p>`;
-  html += `<p><strong>Domicilio:</strong> ${document.querySelector("input[name='domicilio']").value}</p>`;
-  html += `<p><strong>CP / Provincia / Localidad:</strong> ${document.querySelector("input[name='cp_prov_localidad']").value}</p>`;
-  html += `<p><strong>NIF / CIF / NIE:</strong> ${document.querySelector("input[name='nif']").value}</p>`;
-  html += `<p><strong>Teléfono:</strong> ${document.querySelector("input[name='telefono']").value}</p>`;
-  html += `<p><strong>Email:</strong> ${document.querySelector("input[name='email_cliente']").value}</p>`;
-
-  html += `<h2>Comercial Telekos</h2>`;
-  html += `<p><strong>Nombre y Apellidos:</strong> ${document.querySelector("input[name='comercial_nombre']").value}</p>`;
-  html += `<p><strong>Móvil:</strong> ${document.querySelector("input[name='comercial_movil']").value}</p>`;
-  html += `<p><strong>Email:</strong> ${document.querySelector("input[name='comercial_email']").value}</p>`;
-  html += `<p><strong>Fijo:</strong> ${document.querySelector("input[name='comercial_fijo']").value}</p>`;
-
-  // Tabla servicios
-  html += `<h3>Servicios Contratados</h3><table border="1" cellpadding="5" cellspacing="0"><tr>
-  <th>Cant.</th><th>Servicio</th><th>Coste Mensual (€)</th><th>Total (€)</th></tr>`;
-  tablaServicios.querySelectorAll("tr").forEach(row => {
-    html += `<tr>`;
-    html += `<td>${row.querySelector(".cant").value}</td>`;
-    html += `<td>${row.querySelector("input[name='servicio[]']").value}</td>`;
-    html += `<td>${row.querySelector(".coste").value}</td>`;
-    html += `<td>${row.querySelector(".total").textContent}</td>`;
-    html += `</tr>`;
-  });
-  html += `</table>`;
-
-  // Tabla estudio
-  html += `<h3>Estudio Cliente</h3><table border="1" cellpadding="5" cellspacing="0"><tr>
-  <th>Servicio</th><th>Gasto Actual (€)</th><th>Nuevo Gasto (€)</th><th>Ahorro Mensual (€)</th></tr>`;
-  tablaEstudio.querySelectorAll("tr").forEach(row => {
-    html += `<tr>`;
-    html += `<td>${row.querySelector("input[name='servicio_estudio[]']").value}</td>`;
-    html += `<td>${row.querySelector(".gasto_actual").value}</td>`;
-    html += `<td>${row.querySelector(".nuevo_gasto").value}</td>`;
-    html += `<td>${row.querySelector(".ahorro_mensual").value}</td>`;
-    html += `</tr>`;
-  });
-  html += `</table>`;
-
-  // Observaciones
-  html += `<h3>Observaciones</h3>`;
-  html += `<p>${document.querySelector("textarea[name='observaciones']").value}</p>`;
-
-  // Firma
-  html += `<h3>Firma Cliente</h3>`;
-  html += `<p><strong>Nombre/Firma:</strong> ${document.querySelector("input[name='nombre_cliente']").value}</p>`;
-  html += `<p><strong>Fecha:</strong> ${document.querySelector("input[name='fecha_cliente']").value}</p>`;
-
-  document.getElementById('bodyEmail').value = html;
-}
-
-// Enviar
-document.getElementById('telekosForm').addEventListener('submit', generarBodyEmail);
+document.querySelector("textarea[name='observaciones']").addEventListener("input", actualizarTimeline);
+document.getElementById("empresa").addEventListener("input", actualizarTimeline);
+document.querySelector("input[name='fecha_cliente']").addEventListener("input", actualizarTimeline);
 
 // Inicial
 calcularTotales();
 calcularEstudio();
+actualizarTimeline();
 </script>
 
 </body>
