@@ -12,6 +12,19 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Imagen fija en esquina superior izquierda */
+.logo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 150px; /* tamaño más grande */
+  height: auto;
+  opacity: 0.5; /* semitransparente */
+  z-index: 1000;
+  pointer-events: none;
+}
+
 header {
   background-color: #003b75;
   color: white;
@@ -166,6 +179,9 @@ mark {
 </style>
 </head>
 <body>
+
+<!-- Imagen fija en esquina superior izquierda -->
+<img src="logo.png" alt="Logo Telekos" class="logo">
 
 <header>
   <h1>Propuesta Comercial - Telekos</h1>
