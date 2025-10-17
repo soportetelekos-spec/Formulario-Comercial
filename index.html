@@ -13,35 +13,47 @@ body {
   padding: 0;
 }
 
-/* Imagen fija en esquina superior izquierda */
-.logo {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  width: 225px; /* tamaño más grande */
-  height: auto;
-  opacity: 0.5; /* semitransparente */
-  z-index: 1000;
-  pointer-events: none;
+/* CUADRO DE PROPUESTA */
+.propuesta {
+  max-width: 1000px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
 }
 
-header {
+/* HEADER CON FONDO AZUL */
+.propuesta header {
   background-color: #003b75;
-  color: white;
+  padding: 40px 30px;
+  position: relative;
   text-align: center;
-  padding: 25px 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-header h1 {
+.propuesta header h1 {
+  color: white;
   margin: 0;
   font-size: 1.9rem;
 }
+
+/* LOGO DENTRO DEL HEADER */
+.propuesta header .logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 225px;
+  height: auto;
+  opacity: 0.5;
+}
+
+/* TIMELINE */
 .timeline {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1000px;
-  margin: 20px auto;
+  max-width: 100%;
+  margin: 20px 0;
   padding: 10px 0;
   position: relative;
 }
@@ -71,11 +83,11 @@ header h1 {
   border-radius: 50%;
   margin: 0 auto 6px;
   border: 3px solid #004b8d;
-  transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.9rem;
+  transition: all 0.3s;
 }
 .step.active .circle {
   background: #ee930b;
@@ -85,12 +97,13 @@ header h1 {
 .step.active {
   color: #0074e1;
 }
+
+/* DETAILS */
 details {
   background: white;
-  margin: 20px auto;
+  margin: 20px 0;
   padding: 15px 20px;
   border-radius: 10px;
-  max-width: 1000px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   border-left: 4px solid #004b8d;
   transition: all 0.2s ease-in-out;
@@ -111,6 +124,8 @@ summary {
 details:hover summary {
   color: #0080ff;
 }
+
+/* FORMULARIO */
 label {
   display: block;
   font-weight: 600;
@@ -180,131 +195,133 @@ mark {
 </head>
 <body>
 
-<!-- Imagen fija en esquina superior izquierda -->
-<img src="logo.png" alt="Logo Telekos" class="logo">
+<div class="propuesta">
+  <!-- HEADER CON LOGO -->
+  <header>
+    <img src="logo.png" alt="Logo Telekos" class="logo">
+    <h1>Propuesta Comercial - Telekos</h1>
+  </header>
 
-<header>
-  <h1>Propuesta Comercial - Telekos</h1>
-</header>
-
-<div class="timeline">
-  <div class="step" data-step="1"><div class="circle"></div>Cliente</div>
-  <div class="step" data-step="2"><div class="circle"></div>Propuesta</div>
-  <div class="step" data-step="3"><div class="circle"></div>Estudio</div>
-  <div class="step" data-step="4"><div class="circle"></div>Aprobación</div>
-  <div class="step" data-step="5"><div class="circle"></div>Instalación</div>
-  <div class="step" data-step="6"><div class="circle"></div>Activo</div>
-</div>
-
-<form action="https://formsubmit.co/soporte@telekos.com" method="POST" id="telekosForm">
-  <!-- Redirección y formato HTML -->
-  <input type="hidden" name="_next" value="https://soportetelekos-spec.github.io/Formulario-Comercial/gracias.html">
-  <input type="hidden" name="_html" value="true">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_body" id="bodyEmail">
-
-  <!-- Datos del Cliente -->
-  <details open>
-    <summary>Datos del Cliente</summary>
-    <label>Nombre de la Empresa:</label><input type="text" name="empresa" id="empresa" required>
-    <label>Atención de:</label><input type="text" name="atencion">
-    <label>Domicilio:</label><input type="text" name="domicilio">
-    <label>CP / Provincia / Localidad:</label><input type="text" name="cp_prov_localidad">
-    <label>NIF / CIF / NIE:</label><input type="text" name="nif">
-    <label>Teléfono:</label><input type="text" name="telefono">
-    <label>Email:</label><input type="email" name="email_cliente">
-  </details>
-
-  <!-- Comercial -->
-  <details>
-    <summary>Comercial Telekos</summary>
-    <label>Nombre y Apellidos:</label><input type="text" name="comercial_nombre">
-    <label>Teléfono Móvil:</label><input type="text" name="comercial_movil">
-    <label>Email:</label><input type="email" name="comercial_email">
-    <label>Teléfono Fijo:</label><input type="text" name="comercial_fijo" value="91 088 50 50">
-  </details>
-
-  <!-- Servicios -->
-  <details>
-    <summary>Servicios Contratados</summary>
-    <table id="tablaServicios">
-      <thead>
-        <tr>
-          <th>Cant.</th>
-          <th>Servicio</th>
-          <th>Coste Mensual (€)</th>
-          <th>Total (€)</th>
-          <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-          <td><input type="text" name="servicio[]" placeholder="Centralita en la nube, SMS, etc."></td>
-          <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
-          <td class="total">0.00</td>
-          <td><button type="button" class="btn eliminar">X</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="button" class="btn" id="agregarServicio">➕ Agregar servicio</button>
-    <label>Coste de instalación (€ IVA incl.):</label><input type="number" step="0.01" id="instalacion" name="instalacion" value="0">
-    <p class="totales">Subtotal mensual: <span id="subtotal">0.00</span> €</p>
-    <p class="totales">IVA (21%): <span id="iva">0.00</span> €</p>
-    <p class="totales">Total mensual con IVA: <span id="totalConIVA">0.00</span> €</p>
-  </details>
-
-  <!-- Estudio Cliente -->
-  <details>
-    <summary>Estudio del Cliente y Amortización</summary>
-    <h3 style="color:#004b8d;">Comparativa de Gastos</h3>
-    <table id="tablaEstudio">
-      <thead>
-        <tr>
-          <th>Servicio</th>
-          <th>Gasto Actual (€)</th>
-          <th>Nuevo Gasto (€)</th>
-          <th>Ahorro Mensual (€)</th>
-          <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text" name="servicio_estudio[]" placeholder="Telefonía fija, móvil, etc."></td>
-          <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
-          <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
-          <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
-          <td><button type="button" class="btn eliminarEstudio">X</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
-    <p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
-  </details>
-
-  <!-- Observaciones y Firma -->
-  <details>
-    <summary>Observaciones y Legales</summary>
-    <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
-    <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
-  </details>
-
-  <details>
-    <summary>Firma Cliente </summary>
-    <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
-    <input type="text" name="nombre_cliente">
-    <label>Fecha:</label>
-    <input type="date" name="fecha_cliente">
-  </details>
-
-  <div style="text-align:center;">
-    <button type="submit" class="btn">📧 Enviar Formulario</button>
-    <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+  <!-- TIMELINE -->
+  <div class="timeline">
+    <div class="step" data-step="1"><div class="circle"></div>Cliente</div>
+    <div class="step" data-step="2"><div class="circle"></div>Propuesta</div>
+    <div class="step" data-step="3"><div class="circle"></div>Estudio</div>
+    <div class="step" data-step="4"><div class="circle"></div>Aprobación</div>
+    <div class="step" data-step="5"><div class="circle"></div>Instalación</div>
+    <div class="step" data-step="6"><div class="circle"></div>Activo</div>
   </div>
-</form>
 
-<div class="footer">
-  <p>Telekos © 2025 — <a href="https://www.telekos.com" target="_blank">www.telekos.com</a></p>
+  <!-- FORMULARIO -->
+  <form action="https://formsubmit.co/soporte@telekos.com" method="POST" id="telekosForm">
+    <input type="hidden" name="_next" value="https://soportetelekos-spec.github.io/Formulario-Comercial/gracias.html">
+    <input type="hidden" name="_html" value="true">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_body" id="bodyEmail">
+
+    <!-- DATOS DEL CLIENTE -->
+    <details open>
+      <summary>Datos del Cliente</summary>
+      <label>Nombre de la Empresa:</label><input type="text" name="empresa" id="empresa" required>
+      <label>Atención de:</label><input type="text" name="atencion">
+      <label>Domicilio:</label><input type="text" name="domicilio">
+      <label>CP / Provincia / Localidad:</label><input type="text" name="cp_prov_localidad">
+      <label>NIF / CIF / NIE:</label><input type="text" name="nif">
+      <label>Teléfono:</label><input type="text" name="telefono">
+      <label>Email:</label><input type="email" name="email_cliente">
+    </details>
+
+    <!-- COMERCIAL -->
+    <details>
+      <summary>Comercial Telekos</summary>
+      <label>Nombre y Apellidos:</label><input type="text" name="comercial_nombre">
+      <label>Teléfono Móvil:</label><input type="text" name="comercial_movil">
+      <label>Email:</label><input type="email" name="comercial_email">
+      <label>Teléfono Fijo:</label><input type="text" name="comercial_fijo" value="91 088 50 50">
+    </details>
+
+    <!-- SERVICIOS -->
+    <details>
+      <summary>Servicios Contratados</summary>
+      <table id="tablaServicios">
+        <thead>
+          <tr>
+            <th>Cant.</th>
+            <th>Servicio</th>
+            <th>Coste Mensual (€)</th>
+            <th>Total (€)</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
+            <td><input type="text" name="servicio[]" placeholder="Centralita en la nube, SMS, etc."></td>
+            <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
+            <td class="total">0.00</td>
+            <td><button type="button" class="btn eliminar">X</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn" id="agregarServicio">➕ Agregar servicio</button>
+      <label>Coste de instalación (€ IVA incl.):</label><input type="number" step="0.01" id="instalacion" name="instalacion" value="0">
+      <p class="totales">Subtotal mensual: <span id="subtotal">0.00</span> €</p>
+      <p class="totales">IVA (21%): <span id="iva">0.00</span> €</p>
+      <p class="totales">Total mensual con IVA: <span id="totalConIVA">0.00</span> €</p>
+    </details>
+
+    <!-- ESTUDIO -->
+    <details>
+      <summary>Estudio del Cliente y Amortización</summary>
+      <h3 style="color:#004b8d;">Comparativa de Gastos</h3>
+      <table id="tablaEstudio">
+        <thead>
+          <tr>
+            <th>Servicio</th>
+            <th>Gasto Actual (€)</th>
+            <th>Nuevo Gasto (€)</th>
+            <th>Ahorro Mensual (€)</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" name="servicio_estudio[]" placeholder="Telefonía fija, móvil, etc."></td>
+            <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
+            <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
+            <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
+            <td><button type="button" class="btn eliminarEstudio">X</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
+      <p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
+    </details>
+
+    <!-- OBSERVACIONES Y FIRMA -->
+    <details>
+      <summary>Observaciones y Legales</summary>
+      <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
+      <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
+    </details>
+
+    <details>
+      <summary>Firma Cliente</summary>
+      <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
+      <input type="text" name="nombre_cliente">
+      <label>Fecha:</label>
+      <input type="date" name="fecha_cliente">
+    </details>
+
+    <div style="text-align:center;">
+      <button type="submit" class="btn">📧 Enviar Formulario</button>
+      <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    </div>
+  </form>
+
+  <div class="footer">
+    <p>Telekos © 2025 — <a href="https://www.telekos.com" target="_blank">www.telekos.com</a></p>
+  </div>
 </div>
 
 <script>
@@ -382,7 +399,6 @@ agregarEstudioBtn.addEventListener("click", () => {
   tablaEstudio.appendChild(fila);
 });
 
-// Eliminar filas
 tablaServicios.addEventListener("click", e => {
   if(e.target.classList.contains("eliminar")) { e.target.closest("tr").remove(); calcularTotales(); }
 });
@@ -390,7 +406,6 @@ tablaEstudio.addEventListener("click", e => {
   if(e.target.classList.contains("eliminarEstudio")) { e.target.closest("tr").remove(); calcularEstudio(); }
 });
 
-// Inputs cálculo
 tablaServicios.addEventListener("input", calcularTotales);
 instalacionEl.addEventListener("input", calcularTotales);
 tablaEstudio.addEventListener("input", calcularEstudio);
