@@ -12,15 +12,19 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Imagen fija en esquina superior izquierda */
 .logo {
   position: fixed;
   top: 10px;
   left: 10px;
-  width: 200px;
-  opacity: 0.5;
+  width: 225px; /* tamaño más grande */
+  height: auto;
+  opacity: 0.5; /* semitransparente */
   z-index: 1000;
   pointer-events: none;
 }
+
 header {
   background-color: #003b75;
   color: white;
@@ -28,25 +32,10 @@ header {
   padding: 25px 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-header h1 { margin: 0; font-size: 1.9rem; }
-
-/* Barra de progreso */
-#progressBar {
-  width: 100%;
-  height: 6px;
-  background: #c9defa;
-  border-radius: 3px;
-  margin-top: -10px;
+header h1 {
+  margin: 0;
+  font-size: 1.9rem;
 }
-#progressFill {
-  height: 100%;
-  width: 0%;
-  background: #e4990f;
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-/* Timeline */
 .timeline {
   display: flex;
   justify-content: space-between;
@@ -76,17 +65,26 @@ header h1 { margin: 0; font-size: 1.9rem; }
   font-weight: 600;
 }
 .circle {
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   background: #c9defa;
   border-radius: 50%;
   margin: 0 auto 6px;
   border: 3px solid #004b8d;
-  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
 }
-.step.active .circle { background: #e4990f; border-color: #005bb5; box-shadow: 0 0 8px rgba(0,116,225,0.5); }
-.step.active { color: #0074e1; }
-
-/* Contenedores */
+.step.active .circle {
+  background: #ee930b;
+  border-color: #005bb5;
+  box-shadow: 0 0 8px rgba(0,116,225,0.5);
+}
+.step.active {
+  color: #0074e1;
+}
 details {
   background: white;
   margin: 20px auto;
@@ -97,57 +95,97 @@ details {
   border-left: 4px solid #004b8d;
   transition: all 0.2s ease-in-out;
 }
-details:hover { background-color: #f2f8ff; border-left: 4px solid #0080ff; }
-summary { font-size: 1.15rem; font-weight: 600; color: #004b8d; cursor: pointer; padding: 10px 0; }
-details:hover summary { color: #0080ff; }
-
-label { display: block; font-weight: 600; margin-top: 8px; }
+details:hover {
+  background-color: #f2f8ff;
+  border-left: 4px solid #0080ff;
+}
+summary {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #004b8d;
+  cursor: pointer;
+  outline: none;
+  padding: 10px 0;
+  transition: color 0.2s ease-in-out;
+}
+details:hover summary {
+  color: #0080ff;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #003b75;
+}
 input, textarea {
-  width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccd9e8;
-  margin-bottom: 10px; font-size: 0.95rem; background-color: #fdfdfd;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccd9e8;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  background-color: #fdfdfd;
 }
-input:focus, textarea:focus { border-color: #0074e1; outline: none; box-shadow: 0 0 4px rgba(0,116,225,0.3); }
-
-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-th, td { border: 1px solid #dee7f3; padding: 8px; text-align: center; min-width: 100px; }
-th { background-color: #e3f2fd; color: #003b75; }
-
+input:focus, textarea:focus {
+  border-color: #0074e1;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0,116,225,0.3);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+th, td {
+  border: 1px solid #dee7f3;
+  padding: 8px;
+  text-align: center;
+}
+th {
+  background-color: #e3f2fd;
+  color: #003b75;
+}
 .btn {
-  background-color: #004b8d; color: white; padding: 10px 20px;
-  border: none; border-radius: 8px; cursor: pointer;
-  font-weight: 600; margin-top: 10px; transition: background 0.3s;
+  background-color: #004b8d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: background 0.3s;
 }
-.btn:hover { background-color: #0074e1; }
-
-.totales { font-weight: bold; text-align: right; color: #003b75; }
-mark { background-color: #d9edff; color: #003b75; padding: 2px 5px; border-radius: 4px; }
-.footer { text-align: center; font-size: 0.8rem; color: #666; margin: 40px 0 20px; }
-
-/* Responsive móvil */
-@media (max-width: 600px) {
-  header h1 { font-size: 1.4rem; padding: 15px 5px; }
-  details { padding: 10px 15px; }
-  .btn { padding: 10px; font-size: 0.9rem; width: 100%; margin-top: 8px; }
-  .timeline { flex-direction: column; align-items: flex-start; padding: 10px; }
-  .step { margin-bottom: 10px; text-align: left; }
-  table { display: block; overflow-x: auto; }
+.btn:hover {
+  background-color: #0074e1;
 }
-@media print {
-  .logo { opacity: 1; position: static; display: block; margin: 0 auto 10px; }
-  header, .btn, .timeline, #progressBar { display: none; }
-  body { background: white; }
+.totales {
+  font-weight: bold;
+  text-align: right;
+  color: #003b75;
+}
+mark {
+  background-color: #d9edff;
+  color: #003b75;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666;
+  margin: 40px 0 20px;
 }
 </style>
 </head>
 <body>
 
+<!-- Imagen fija en esquina superior izquierda -->
 <img src="logo.png" alt="Logo Telekos" class="logo">
 
 <header>
   <h1>Propuesta Comercial - Telekos</h1>
 </header>
-
-<div id="progressBar"><div id="progressFill"></div></div>
 
 <div class="timeline">
   <div class="step" data-step="1"><div class="circle"></div>Cliente</div>
@@ -159,11 +197,13 @@ mark { background-color: #d9edff; color: #003b75; padding: 2px 5px; border-radiu
 </div>
 
 <form action="https://formsubmit.co/soporte@telekos.com" method="POST" id="telekosForm">
+  <!-- Redirección y formato HTML -->
   <input type="hidden" name="_next" value="https://soportetelekos-spec.github.io/Formulario-Comercial/gracias.html">
   <input type="hidden" name="_html" value="true">
   <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_body" id="bodyEmail">
 
-  <!-- Cliente -->
+  <!-- Datos del Cliente -->
   <details open>
     <summary>Datos del Cliente</summary>
     <label>Nombre de la Empresa:</label><input type="text" name="empresa" id="empresa" required>
@@ -187,22 +227,26 @@ mark { background-color: #d9edff; color: #003b75; padding: 2px 5px; border-radiu
   <!-- Servicios -->
   <details>
     <summary>Servicios Contratados</summary>
-    <div style="overflow-x:auto;">
     <table id="tablaServicios">
       <thead>
-        <tr><th>Cant.</th><th>Servicio</th><th>Coste Mensual (€)</th><th>Total (€)</th><th>Eliminar</th></tr>
+        <tr>
+          <th>Cant.</th>
+          <th>Servicio</th>
+          <th>Coste Mensual (€)</th>
+          <th>Total (€)</th>
+          <th>Eliminar</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
           <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-          <td><input type="text" name="servicio[]" placeholder="Centralita, SMS, etc."></td>
+          <td><input type="text" name="servicio[]" placeholder="Centralita en la nube, SMS, etc."></td>
           <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
           <td class="total">0.00</td>
           <td><button type="button" class="btn eliminar">X</button></td>
         </tr>
       </tbody>
     </table>
-    </div>
     <button type="button" class="btn" id="agregarServicio">➕ Agregar servicio</button>
     <label>Coste de instalación (€ IVA incl.):</label><input type="number" step="0.01" id="instalacion" name="instalacion" value="0">
     <p class="totales">Subtotal mensual: <span id="subtotal">0.00</span> €</p>
@@ -210,14 +254,19 @@ mark { background-color: #d9edff; color: #003b75; padding: 2px 5px; border-radiu
     <p class="totales">Total mensual con IVA: <span id="totalConIVA">0.00</span> €</p>
   </details>
 
-  <!-- Estudio -->
+  <!-- Estudio Cliente -->
   <details>
     <summary>Estudio del Cliente y Amortización</summary>
     <h3 style="color:#004b8d;">Comparativa de Gastos</h3>
-    <div style="overflow-x:auto;">
     <table id="tablaEstudio">
       <thead>
-        <tr><th>Servicio</th><th>Gasto Actual (€)</th><th>Nuevo Gasto (€)</th><th>Ahorro Mensual (€)</th><th>Eliminar</th></tr>
+        <tr>
+          <th>Servicio</th>
+          <th>Gasto Actual (€)</th>
+          <th>Nuevo Gasto (€)</th>
+          <th>Ahorro Mensual (€)</th>
+          <th>Eliminar</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
@@ -229,30 +278,28 @@ mark { background-color: #d9edff; color: #003b75; padding: 2px 5px; border-radiu
         </tr>
       </tbody>
     </table>
-    </div>
     <button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
     <p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
-    <p class="totales">Amortización estimada: <span id="amortizacionMeses">—</span> meses</p>
   </details>
 
-  <!-- Observaciones -->
+  <!-- Observaciones y Firma -->
   <details>
     <summary>Observaciones y Legales</summary>
     <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
-    <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas.</mark></p>
+    <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
   </details>
 
-  <!-- Firma -->
   <details>
-    <summary>Firma Cliente</summary>
-    <label>Firma o Nombre y Apellidos:</label><input type="text" name="nombre_cliente">
-    <label>Fecha:</label><input type="date" name="fecha_cliente">
+    <summary>Firma Cliente </summary>
+    <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
+    <input type="text" name="nombre_cliente">
+    <label>Fecha:</label>
+    <input type="date" name="fecha_cliente">
   </details>
 
   <div style="text-align:center;">
     <button type="submit" class="btn">📧 Enviar Formulario</button>
     <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
-    
   </div>
 </form>
 
@@ -261,18 +308,19 @@ mark { background-color: #d9edff; color: #003b75; padding: 2px 5px; border-radiu
 </div>
 
 <script>
-const form = document.getElementById("telekosForm");
-const tablaServicios = document.querySelector("#tablaServicios tbody");
-const tablaEstudio = document.querySelector("#tablaEstudio tbody");
-const instalacionEl = document.getElementById("instalacion");
+// Variables
+const tablaServicios = document.getElementById("tablaServicios").querySelector("tbody");
+const tablaEstudio = document.getElementById("tablaEstudio").querySelector("tbody");
+const agregarBtn = document.getElementById("agregarServicio");
+const agregarEstudioBtn = document.getElementById("agregarEstudio");
 const subtotalEl = document.getElementById("subtotal");
 const ivaEl = document.getElementById("iva");
 const totalConIVAEl = document.getElementById("totalConIVA");
+const instalacionEl = document.getElementById("instalacion");
 const ahorroAnualEl = document.getElementById("ahorro_anual");
-const amortizacionMesesEl = document.getElementById("amortizacionMeses");
 const steps = document.querySelectorAll(".step");
-const progressFill = document.getElementById("progressFill");
 
+// Funciones de cálculo
 function calcularTotales() {
   let subtotal = 0;
   tablaServicios.querySelectorAll("tr").forEach(row => {
@@ -289,7 +337,6 @@ function calcularTotales() {
   ivaEl.textContent = iva.toFixed(2);
   totalConIVAEl.textContent = totalConIVA.toFixed(2);
   actualizarTimeline();
-  calcularEstudio();
 }
 
 function calcularEstudio() {
@@ -303,10 +350,9 @@ function calcularEstudio() {
   });
   const ahorroAnual = ahorroTotalMensual * 12;
   ahorroAnualEl.textContent = ahorroAnual.toFixed(2);
-  const instalacion = parseFloat(instalacionEl.value) || 0;
-  amortizacionMesesEl.textContent = ahorroTotalMensual > 0 ? (instalacion / ahorroTotalMensual).toFixed(1) : "—";
 }
 
+// Timeline
 function actualizarTimeline() {
   steps[0].classList.toggle("active", document.getElementById("empresa").value.trim() !== "");
   steps[1].classList.toggle("active", Array.from(tablaServicios.querySelectorAll(".coste")).some(c => parseFloat(c.value) > 0));
@@ -314,57 +360,48 @@ function actualizarTimeline() {
   steps[3].classList.toggle("active", document.querySelector("textarea[name='observaciones']").value.trim() !== "");
   steps[4].classList.toggle("active", parseFloat(instalacionEl.value) > 0);
   steps[5].classList.toggle("active", document.querySelector("input[name='fecha_cliente']").value.trim() !== "");
-  const activeCount = document.querySelectorAll(".step.active").length;
-  progressFill.style.width = (activeCount / steps.length * 100) + "%";
 }
 
-// Agregar/eliminar filas
-document.getElementById("agregarServicio").onclick = () => {
-  const row = document.createElement("tr");
-  row.innerHTML = `<td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-  <td><input type="text" name="servicio[]" placeholder="Nuevo servicio"></td>
-  <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
-  <td class="total">0.00</td>
-  <td><button type="button" class="btn eliminar">X</button></td>`;
-  tablaServicios.appendChild(row);
-};
-tablaServicios.onclick = e => { if(e.target.classList.contains("eliminar")) e.target.closest("tr").remove(), calcularTotales(); };
+// Event listeners
+agregarBtn.addEventListener("click", () => {
+  const fila = document.createElement("tr");
+  fila.innerHTML = `<td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
+    <td><input type="text" name="servicio[]" placeholder="Nuevo servicio"></td>
+    <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
+    <td class="total">0.00</td>
+    <td><button type="button" class="btn eliminar">X</button></td>`;
+  tablaServicios.appendChild(fila);
+});
+agregarEstudioBtn.addEventListener("click", () => {
+  const fila = document.createElement("tr");
+  fila.innerHTML = `<td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
+    <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
+    <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
+    <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
+    <td><button type="button" class="btn eliminarEstudio">X</button></td>`;
+  tablaEstudio.appendChild(fila);
+});
 
-document.getElementById("agregarEstudio").onclick = () => {
-  const row = document.createElement("tr");
-  row.innerHTML = `<td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
-  <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
-  <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
-  <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
-  <td><button type="button" class="btn eliminarEstudio">X</button></td>`;
-  tablaEstudio.appendChild(row);
-};
-tablaEstudio.onclick = e => { if(e.target.classList.contains("eliminarEstudio")) e.target.closest("tr").remove(), calcularEstudio(); };
+// Eliminar filas
+tablaServicios.addEventListener("click", e => {
+  if(e.target.classList.contains("eliminar")) { e.target.closest("tr").remove(); calcularTotales(); }
+});
+tablaEstudio.addEventListener("click", e => {
+  if(e.target.classList.contains("eliminarEstudio")) { e.target.closest("tr").remove(); calcularEstudio(); }
+});
 
-// Eventos
+// Inputs cálculo
 tablaServicios.addEventListener("input", calcularTotales);
-tablaEstudio.addEventListener("input", calcularEstudio);
 instalacionEl.addEventListener("input", calcularTotales);
+tablaEstudio.addEventListener("input", calcularEstudio);
 document.querySelector("textarea[name='observaciones']").addEventListener("input", actualizarTimeline);
 document.getElementById("empresa").addEventListener("input", actualizarTimeline);
 document.querySelector("input[name='fecha_cliente']").addEventListener("input", actualizarTimeline);
 
-// Inicializar al cargar
-window.addEventListener("load", () => {
-  calcularTotales();
-  calcularEstudio();
-  actualizarTimeline();
-});
-
-
-// Confirmación al enviar y limpiar formulario
-form.addEventListener("submit", () => {
-  alert("📨 Tu propuesta se ha enviado correctamente. ¡Gracias!");
-  form.reset();
-  calcularTotales();
-  calcularEstudio();
-  actualizarTimeline();
-});
+// Inicial
+calcularTotales();
+calcularEstudio();
+actualizarTimeline();
 </script>
 
 </body>
