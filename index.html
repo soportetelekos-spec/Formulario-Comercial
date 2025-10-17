@@ -334,10 +334,12 @@ document.getElementById("telekosForm").addEventListener("submit", function(e) {
     }
   });
 
-  // También rellenar los campos de tablas dinámicas vacíos
+  // Campos de tabla Servicios
   tablaServicios.querySelectorAll("input").forEach(input => {
     if (input.value.trim() === "") input.value = "nulo";
   });
+
+  // Campos de tabla Estudio (incluyendo gasto_actual y nuevo_gasto)
   tablaEstudio.querySelectorAll("input").forEach(input => {
     if (input.value.trim() === "") input.value = "nulo";
   });
@@ -350,6 +352,7 @@ document.getElementById("telekosForm").addEventListener("submit", function(e) {
   }
   document.getElementById("bodyEmail").value = body;
 });
+
 // Variables
 const tablaServicios = document.getElementById("tablaServicios").querySelector("tbody");
 const tablaEstudio = document.getElementById("tablaEstudio").querySelector("tbody");
@@ -446,4 +449,5 @@ actualizarTimeline();
 
 </body>
 </html>
+
 
