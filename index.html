@@ -325,6 +325,31 @@ mark {
 </div>
 
 <script>
+   // Antes de enviar el formulario, rellenar campos vacíos con "nulo"
+document.getElementById("telekosForm").addEventListener("submit", function(e) {
+  const inputs = this.querySelectorAll("input, textarea");
+  inputs.forEach(input => {
+    if (input.value.trim() === "") {
+      input.value = "nulo";
+    }
+  });
+
+  // También rellenar los campos de tablas dinámicas vacíos
+  tablaServicios.querySelectorAll("input").forEach(input => {
+    if (input.value.trim() === "") input.value = "nulo";
+  });
+  tablaEstudio.querySelectorAll("input").forEach(input => {
+    if (input.value.trim() === "") input.value = "nulo";
+  });
+
+  // Actualizamos el cuerpo del email
+  const formData = new FormData(this);
+  let body = "";
+  for (let [name, value] of formData.entries()) {
+    body += `<tr><td>${name}</td><td>${value}</td></tr>`;
+  }
+  document.getElementById("bodyEmail").value = body;
+});
 // Variables
 const tablaServicios = document.getElementById("tablaServicios").querySelector("tbody");
 const tablaEstudio = document.getElementById("tablaEstudio").querySelector("tbody");
@@ -421,3 +446,4 @@ actualizarTimeline();
 
 </body>
 </html>
+
