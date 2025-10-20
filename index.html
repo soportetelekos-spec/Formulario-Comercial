@@ -241,7 +241,7 @@ mark {
     </details>
 
     <!-- SERVICIOS -->
-    <details>
+  <details>
       <summary>Servicios Contratados</summary>
       <table id="tablaServicios">
         <thead>
@@ -256,18 +256,72 @@ mark {
         <tbody>
           <tr>
             <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-            <td><input type="text" name="servicio[]" placeholder="Centralita en la nube, SMS, etc."></td>
+            <td>
+              <select class="servicioSelect">
+                <option value="">-- Selecciona un servicio --</option>
+                <option value="Numeraciones|5">Numeraciones</option>
+                <option value="Extensiones|5">Extensiones</option>
+                <option value="Canales|2">Canales</option>
+                <option value="Hardware|5">Hardware</option>
+                <option value="Software|5">Software</option>
+                <option value="TP 100 Nac|19">TP 100 Nac</option>
+                <option value="TP 200 Nac|25">TP 200 Nac</option>
+                <option value="TP 500 Nac|32">TP 500 Nac</option>
+                <option value="TP 1000 Nac|49">TP 1000 Nac</option>
+                <option value="TP 2000 Nac|79">TP 2000 Nac</option>
+                <option value="TKM Fibra 34|34">TKM Fibra 34</option>
+                <option value="TKM Fibra 44|44">TKM Fibra 44</option>
+                <option value="TKM Fibra 54|54">TKM Fibra 54</option>
+                <option value="TKM Backup|12">TKM Backup</option>
+                <option value="TKM Movil 10 Gb|4.92">TKM Movil 10 Gb</option>
+                <option value="TKM Movil 40 Gb|6.57">TKM Movil 40 Gb</option>
+                <option value="TKM Movil 100Gb|8.22">TKM Movil 100Gb</option>
+                <option value="TKM Movil 250 Gb|10.7">TKM Movil 250 Gb</option>
+                <option value="TKM Movil Gb Ilimitados|16.49">TKM Movil Gb Ilimitados</option>
+                <option value="TKL Fibra 600|24.95">TKL Fibra 600</option>
+                <option value="TKL Fibra 1 Gb|24.95">TKL Fibra 1 Gb</option>
+                <option value="TKL M2M 500 Mb|1.28">TKL M2M 500 Mb</option>
+                <option value="TKL M2M 2 Gb|2.11">TKL M2M 2 Gb</option>
+                <option value="TKL M2M 3 Gb + 150 Min|2.93">TKL M2M 3 Gb + 150 Min</option>
+                <option value="TKL Movil 5 Gb|4.26">TKL Movil 5 Gb</option>
+                <option value="TKL Movil 30 Gb acumulables|6.74">TKL Movil 30 Gb acumulables</option>
+                <option value="TKL Movil 60 Gb acumulables|7.57">TKL Movil 60 Gb acumulables</option>
+                <option value="TKL Movil 80 Gb acumulables|9.22">TKL Movil 80 Gb acumulables</option>
+                <option value="TKL Movil 120 Gb acumulables|10.05">TKL Movil 120 Gb acumulables</option>
+                <option value="TKM Movil 400 Gb|13.36">TKM Movil 400 Gb</option>
+                <option value="TKL Movil 600 Gb|17.49">TKL Movil 600 Gb</option>
+                <option value="TKL Movil Gb ilimitados|21.62">TKL Movil Gb ilimitados</option>
+              </select>
+              <input type="hidden" name="servicio[]" class="servicioInput">
+            </td>
             <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
             <td class="total">0.00</td>
             <td><button type="button" class="btn eliminar">X</button></td>
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn" id="agregarServicio">➕ Agregar servicio</button>
+      <button type="button" class="btn" id="agregarServicio">➕ Servicio predefinido</button>
+      <button type="button" class="btn" id="agregarServicioPersonalizado">➕ Servicio personalizado</button>
       <label>Coste de instalación (€ IVA incl.):</label><input type="number" step="0.01" id="instalacion" name="instalacion" value="0">
       <p class="totales">Subtotal mensual: <span id="subtotal">0.00</span> €</p>
       <p class="totales">IVA (21%): <span id="iva">0.00</span> €</p>
       <p class="totales">Total mensual con IVA: <span id="totalConIVA">0.00</span> €</p>
+    </details>
+    
+
+    <!-- OBSERVACIONES Y FIRMA -->
+    <details>
+      <summary>Observaciones y Legales</summary>
+      <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
+      <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
+    </details>
+
+    <details>
+      <summary>Firma Cliente</summary>
+      <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
+      <input type="text" name="nombre_cliente">
+      <label>Fecha:</label>
+      <input type="date" name="fecha_cliente" required>
     </details>
 
     <!-- ESTUDIO -->
@@ -287,8 +341,8 @@ mark {
         <tbody>
           <tr>
             <td><input type="text" name="servicio_estudio[]" placeholder="Telefonía fija, móvil, etc."></td>
-            <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual" value=""></td>
-            <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto" value=""></td>
+            <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual" readonly></td>
+            <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto" readonly></td>
             <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
             <td><button type="button" class="btn eliminarEstudio">X</button></td>
           </tr>
@@ -296,27 +350,48 @@ mark {
       </table>
       <button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
       <p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
+    
+
+
+      <!-- CUADRO AMORTIZACIÓN -->
+      <h3 style="color:#004b8d; margin-top:30px;">Cuadro de Amortización</h3>
+      <table id="tablaAmortizacion">
+        <thead>
+          <tr>
+            <th>Concepto</th>
+            <th>Importe (€)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Inversión de Equipamiento</td>
+            <td><input type="number" name="inversion_equipamiento" step="0.01" value="0"></td>
+          </tr>
+          <tr>
+            <td>Coste de Instalación y Configuración</td>
+            <td><input type="number" name="coste_instalacion_config" step="0.01" value="0"></td>
+          </tr>
+          <tr>
+            <td>Penalización en Actual Operadora</td>
+            <td><input type="number" name="penalizacion_operadora" step="0.01" value="0"></td>
+          </tr>
+          <tr>
+            <td><strong>Tiempo de Amortización (meses)</strong></td>
+            <td><input type="number" name="tiempo_amortizacion" step="1" value="0"></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- 🔹 FIN DEL BLOQUE NUEVO -->
+
     </details>
 
-    <!-- OBSERVACIONES Y FIRMA -->
-    <details>
-      <summary>Observaciones y Legales</summary>
-      <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
-      <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
-    </details>
-
-    <details>
-      <summary>Firma Cliente</summary>
-      <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
-      <input type="text" name="nombre_cliente">
-      <label>Fecha:</label>
-      <input type="date" name="fecha_cliente">
-    </details>
 
     <div style="text-align:center;">
       <button type="submit" class="btn">📧 Enviar Formulario</button>
       <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
     </div>
+
+    
   </form>
 
   <div class="footer">
@@ -325,38 +400,13 @@ mark {
 </div>
 
 <script>
-   // Antes de enviar el formulario, rellenar campos vacíos con "nulo"
-document.getElementById("telekosForm").addEventListener("submit", function(e) {
-  const inputs = this.querySelectorAll("input, textarea");
-  inputs.forEach(input => {
-    if (input.value.trim() === "") {
-      input.value = "nulo";
-    }
-  });
 
-  // Campos de tabla Servicios
-  tablaServicios.querySelectorAll("input").forEach(input => {
-    if (input.value.trim() === "") input.value = "nulo";
-  });
-
-  // Campos de tabla Estudio (incluyendo gasto_actual y nuevo_gasto)
-  tablaEstudio.querySelectorAll("input").forEach(input => {
-    if (input.value.trim() === "") input.value = "nulo";
-  });
-
-  // Actualizamos el cuerpo del email
-  const formData = new FormData(this);
-  let body = "";
-  for (let [name, value] of formData.entries()) {
-    body += `<tr><td>${name}</td><td>${value}</td></tr>`;
-  }
-  document.getElementById("bodyEmail").value = body;
-});
-
-// Variables
+// Referencias
+const formulario = document.getElementById("telekosForm");
 const tablaServicios = document.getElementById("tablaServicios").querySelector("tbody");
 const tablaEstudio = document.getElementById("tablaEstudio").querySelector("tbody");
 const agregarBtn = document.getElementById("agregarServicio");
+const agregarServicioPersonalizadoBtn = document.getElementById("agregarServicioPersonalizado");
 const agregarEstudioBtn = document.getElementById("agregarEstudio");
 const subtotalEl = document.getElementById("subtotal");
 const ivaEl = document.getElementById("iva");
@@ -365,7 +415,9 @@ const instalacionEl = document.getElementById("instalacion");
 const ahorroAnualEl = document.getElementById("ahorro_anual");
 const steps = document.querySelectorAll(".step");
 
-// Funciones de cálculo
+// === FUNCIONES ===
+
+// Calcular totales
 function calcularTotales() {
   let subtotal = 0;
   tablaServicios.querySelectorAll("tr").forEach(row => {
@@ -384,6 +436,7 @@ function calcularTotales() {
   actualizarTimeline();
 }
 
+// Calcular estudio
 function calcularEstudio() {
   let ahorroTotalMensual = 0;
   tablaEstudio.querySelectorAll("tr").forEach(row => {
@@ -407,19 +460,74 @@ function actualizarTimeline() {
   steps[5].classList.toggle("active", document.querySelector("input[name='fecha_cliente']").value.trim() !== "");
 }
 
-// Event listeners
+// === EVENTOS ===
+
+// Añadir servicio predefinido
 agregarBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
-  fila.innerHTML = `<td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
-    <td><input type="text" name="servicio[]" placeholder="Nuevo servicio"></td>
+  fila.innerHTML = `
+    <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
+    <td>
+      <select class="servicioSelect">
+        <option value="">-- Selecciona un servicio --</option>
+        <option value="Numeraciones|5">Numeraciones</option>
+        <option value="Extensiones|5">Extensiones</option>
+        <option value="Canales|2">Canales</option>
+        <option value="Hardware|5">Hardware</option>
+        <option value="Software|5">Software</option>
+        <option value="TP 100 Nac|19">TP 100 Nac</option>
+        <option value="TP 200 Nac|25">TP 200 Nac</option>
+        <option value="TP 500 Nac|32">TP 500 Nac</option>
+        <option value="TP 1000 Nac|49">TP 1000 Nac</option>
+        <option value="TP 2000 Nac|79">TP 2000 Nac</option>
+        <option value="TKM Fibra 34|34">TKM Fibra 34</option>
+        <option value="TKM Fibra 44|44">TKM Fibra 44</option>
+        <option value="TKM Fibra 54|54">TKM Fibra 54</option>
+        <option value="TKM Backup|12">TKM Backup</option>
+        <option value="TKM Movil 10 Gb|4.92">TKM Movil 10 Gb</option>
+        <option value="TKM Movil 40 Gb|6.57">TKM Movil 40 Gb</option>
+        <option value="TKM Movil 100Gb|8.22">TKM Movil 100Gb</option>
+        <option value="TKM Movil 250 Gb|10.7">TKM Movil 250 Gb</option>
+        <option value="TKM Movil Gb Ilimitados|16.49">TKM Movil Gb Ilimitados</option>
+        <option value="TKL Fibra 600|24.95">TKL Fibra 600</option>
+        <option value="TKL Fibra 1 Gb|24.95">TKL Fibra 1 Gb</option>
+        <option value="TKL M2M 500 Mb|1.28">TKL M2M 500 Mb</option>
+        <option value="TKL M2M 2 Gb|2.11">TKL M2M 2 Gb</option>
+        <option value="TKL M2M 3 Gb + 150 Min|2.93">TKL M2M 3 Gb + 150 Min</option>
+        <option value="TKL Movil 5 Gb|4.26">TKL Movil 5 Gb</option>
+        <option value="TKL Movil 30 Gb acumulables|6.74">TKL Movil 30 Gb acumulables</option>
+        <option value="TKL Movil 60 Gb acumulables|7.57">TKL Movil 60 Gb acumulables</option>
+        <option value="TKL Movil 80 Gb acumulables|9.22">TKL Movil 80 Gb acumulables</option>
+        <option value="TKL Movil 120 Gb acumulables|10.05">TKL Movil 120 Gb acumulables</option>
+        <option value="TKM Movil 400 Gb|13.36">TKM Movil 400 Gb</option>
+        <option value="TKL Movil 600 Gb|17.49">TKL Movil 600 Gb</option>
+        <option value="TKL Movil Gb ilimitados|21.62">TKL Movil Gb ilimitados</option>
+      </select>
+      <input type="hidden" name="servicio[]" class="servicioInput">
+    </td>
     <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
     <td class="total">0.00</td>
     <td><button type="button" class="btn eliminar">X</button></td>`;
   tablaServicios.appendChild(fila);
 });
+
+// Añadir servicio personalizado
+agregarServicioPersonalizadoBtn.addEventListener("click", () => {
+  const fila = document.createElement("tr");
+  fila.innerHTML = `
+    <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
+    <td><input type="text" name="servicio[]" placeholder="Servicio personalizado"></td>
+    <td><input type="number" name="coste[]" step="0.01" value="0" class="coste"></td>
+    <td class="total">0.00</td>
+    <td><button type="button" class="btn eliminar">X</button></td>`;
+  tablaServicios.appendChild(fila);
+});
+
+// Añadir estudio
 agregarEstudioBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
-  fila.innerHTML = `<td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
+  fila.innerHTML = `
+    <td><input type="text" name="servicio_estudio[]" placeholder="Nuevo concepto"></td>
     <td><input type="number" name="gasto_actual[]" step="0.01" class="gasto_actual"></td>
     <td><input type="number" name="nuevo_gasto[]" step="0.01" class="nuevo_gasto"></td>
     <td><input type="number" name="ahorro_mensual[]" step="0.01" class="ahorro_mensual" readonly></td>
@@ -427,19 +535,58 @@ agregarEstudioBtn.addEventListener("click", () => {
   tablaEstudio.appendChild(fila);
 });
 
-tablaServicios.addEventListener("click", e => {
-  if(e.target.classList.contains("eliminar")) { e.target.closest("tr").remove(); calcularTotales(); }
-});
-tablaEstudio.addEventListener("click", e => {
-  if(e.target.classList.contains("eliminarEstudio")) { e.target.closest("tr").remove(); calcularEstudio(); }
+// Eventos dinámicos
+tablaServicios.addEventListener("input", e => {
+  if (e.target.classList.contains("cant") || e.target.classList.contains("coste")) {
+    calcularTotales();
+  }
 });
 
-tablaServicios.addEventListener("input", calcularTotales);
-instalacionEl.addEventListener("input", calcularTotales);
+tablaServicios.addEventListener("change", e => {
+  if (e.target.classList.contains("servicioSelect")) {
+    const [servicio, coste] = e.target.value.split("|");
+    const row = e.target.closest("tr");
+    row.querySelector(".coste").value = coste || 0;
+    row.querySelector(".servicioInput").value = servicio || "";
+    calcularTotales();
+  }
+});
+
+tablaServicios.addEventListener("click", e => {
+  if (e.target.classList.contains("eliminar")) {
+    e.target.closest("tr").remove();
+    calcularTotales();
+  }
+});
+
+tablaEstudio.addEventListener("click", e => {
+  if (e.target.classList.contains("eliminarEstudio")) {
+    e.target.closest("tr").remove();
+    calcularEstudio();
+  }
+});
+
 tablaEstudio.addEventListener("input", calcularEstudio);
+instalacionEl.addEventListener("input", calcularTotales);
 document.querySelector("textarea[name='observaciones']").addEventListener("input", actualizarTimeline);
 document.getElementById("empresa").addEventListener("input", actualizarTimeline);
 document.querySelector("input[name='fecha_cliente']").addEventListener("input", actualizarTimeline);
+
+// === RELLENAR CAMPOS VACÍOS CON "nulo" ANTES DE ENVIAR ===
+formulario.addEventListener("submit", function(e) {
+  const inputs = this.querySelectorAll("input, textarea, select");
+  inputs.forEach(input => {
+    if (input.value.trim() === "") input.value = "nulo";
+  });
+
+  // Generar cuerpo de email (para FormSubmit)
+  const formData = new FormData(this);
+  let body = "";
+  for (let [name, value] of formData.entries()) {
+    body += `<tr><td>${name}</td><td>${value}</td></tr>`;
+  }
+  document.getElementById("bodyEmail").value = body;
+});
 
 // Inicial
 calcularTotales();
@@ -447,9 +594,10 @@ calcularEstudio();
 actualizarTimeline();
 </script>
 
+</script>
+
 </body>
 </html>
-
 
 
 
