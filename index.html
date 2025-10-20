@@ -385,22 +385,7 @@ mark {
 
     </details>
 
-
-    <div style="text-align:center;">
-      <button type="submit" class="btn">📧 Enviar Formulario</button>
-      <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
-    </div>
-
-    
-  </form>
-
-  <div class="footer">
-    <p>Telekos © 2025 — <a href="https://www.telekos.com" target="_blank">www.telekos.com</a></p>
-  </div>
-</div>
-
 <script>
-
 // Referencias
 const formulario = document.getElementById("telekosForm");
 const tablaServicios = document.getElementById("tablaServicios").querySelector("tbody");
@@ -436,16 +421,27 @@ function calcularTotales() {
   actualizarTimeline();
 }
 
-// Calcular estudio
+// ✅ Corregido: Calcular estudio sin bloquear inputs
 function calcularEstudio() {
   let ahorroTotalMensual = 0;
   tablaEstudio.querySelectorAll("tr").forEach(row => {
-    const actual = parseFloat(row.querySelector(".gasto_actual").value) || 0;
-    const nuevo = parseFloat(row.querySelector(".nuevo_gasto").value) || 0;
-    const ahorro = actual - nuevo;
-    row.querySelector(".ahorro_mensual").value = ahorro.toFixed(2);
-    ahorroTotalMensual += ahorro;
+    const actualInput = row.querySelector(".gasto_actual");
+    const nuevoInput = row.querySelector(".nuevo_gasto");
+    const ahorroInput = row.querySelector(".ahorro_mensual");
+
+    const actual = parseFloat(actualInput.value);
+    const nuevo = parseFloat(nuevoInput.value);
+
+    // Si ambos son válidos, calcula. Si no, deja vacío.
+    if (!isNaN(actual) && !isNaN(nuevo)) {
+      const ahorro = actual - nuevo;
+      ahorroInput.value = ahorro.toFixed(2);
+      ahorroTotalMensual += ahorro;
+    } else {
+      ahorroInput.value = "";
+    }
   });
+
   const ahorroAnual = ahorroTotalMensual * 12;
   ahorroAnualEl.textContent = ahorroAnual.toFixed(2);
 }
@@ -480,28 +476,6 @@ agregarBtn.addEventListener("click", () => {
         <option value="TP 500 Nac|32">TP 500 Nac</option>
         <option value="TP 1000 Nac|49">TP 1000 Nac</option>
         <option value="TP 2000 Nac|79">TP 2000 Nac</option>
-        <option value="TKM Fibra 34|34">TKM Fibra 34</option>
-        <option value="TKM Fibra 44|44">TKM Fibra 44</option>
-        <option value="TKM Fibra 54|54">TKM Fibra 54</option>
-        <option value="TKM Backup|12">TKM Backup</option>
-        <option value="TKM Movil 10 Gb|4.92">TKM Movil 10 Gb</option>
-        <option value="TKM Movil 40 Gb|6.57">TKM Movil 40 Gb</option>
-        <option value="TKM Movil 100Gb|8.22">TKM Movil 100Gb</option>
-        <option value="TKM Movil 250 Gb|10.7">TKM Movil 250 Gb</option>
-        <option value="TKM Movil Gb Ilimitados|16.49">TKM Movil Gb Ilimitados</option>
-        <option value="TKL Fibra 600|24.95">TKL Fibra 600</option>
-        <option value="TKL Fibra 1 Gb|24.95">TKL Fibra 1 Gb</option>
-        <option value="TKL M2M 500 Mb|1.28">TKL M2M 500 Mb</option>
-        <option value="TKL M2M 2 Gb|2.11">TKL M2M 2 Gb</option>
-        <option value="TKL M2M 3 Gb + 150 Min|2.93">TKL M2M 3 Gb + 150 Min</option>
-        <option value="TKL Movil 5 Gb|4.26">TKL Movil 5 Gb</option>
-        <option value="TKL Movil 30 Gb acumulables|6.74">TKL Movil 30 Gb acumulables</option>
-        <option value="TKL Movil 60 Gb acumulables|7.57">TKL Movil 60 Gb acumulables</option>
-        <option value="TKL Movil 80 Gb acumulables|9.22">TKL Movil 80 Gb acumulables</option>
-        <option value="TKL Movil 120 Gb acumulables|10.05">TKL Movil 120 Gb acumulables</option>
-        <option value="TKM Movil 400 Gb|13.36">TKM Movil 400 Gb</option>
-        <option value="TKL Movil 600 Gb|17.49">TKL Movil 600 Gb</option>
-        <option value="TKL Movil Gb ilimitados|21.62">TKL Movil Gb ilimitados</option>
       </select>
       <input type="hidden" name="servicio[]" class="servicioInput">
     </td>
@@ -572,7 +546,7 @@ document.querySelector("textarea[name='observaciones']").addEventListener("input
 document.getElementById("empresa").addEventListener("input", actualizarTimeline);
 document.querySelector("input[name='fecha_cliente']").addEventListener("input", actualizarTimeline);
 
-// === RELLENAR CAMPOS VACÍOS CON "nulo" ANTES DE ENVIAR ===
+// ✅ Rellenar vacíos con “nulo” antes de enviar
 formulario.addEventListener("submit", function(e) {
   const inputs = this.querySelectorAll("input, textarea, select");
   inputs.forEach(input => {
@@ -588,16 +562,14 @@ formulario.addEventListener("submit", function(e) {
   document.getElementById("bodyEmail").value = body;
 });
 
-// Inicial
 calcularTotales();
 calcularEstudio();
 actualizarTimeline();
 </script>
 
-</script>
-
 </body>
 </html>
+
 
 
 
