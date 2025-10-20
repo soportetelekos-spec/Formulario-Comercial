@@ -196,7 +196,6 @@ mark {
 <body>
 
 <div class="propuesta">
-  <!-- HEADER CON LOGO -->
   <header>
     <img src="logo.png" alt="Logo Telekos" class="logo">
     <h1>Propuesta Comercial - Telekos</h1>
@@ -241,7 +240,7 @@ mark {
     </details>
 
     <!-- SERVICIOS -->
-  <details>
+    <details>
       <summary>Servicios Contratados</summary>
       <table id="tablaServicios">
         <thead>
@@ -257,7 +256,7 @@ mark {
           <tr>
             <td><input type="number" name="cant[]" min="1" value="1" class="cant"></td>
             <td>
-              <select class="servicioSelect">
+               <select class="servicioSelect">
                 <option value="">-- Selecciona un servicio --</option>
                 <option value="Numeraciones|5">Numeraciones</option>
                 <option value="Extensiones|5">Extensiones</option>
@@ -307,15 +306,15 @@ mark {
       <p class="totales">IVA (21%): <span id="iva">0.00</span> €</p>
       <p class="totales">Total mensual con IVA: <span id="totalConIVA">0.00</span> €</p>
     </details>
-    
 
-    <!-- OBSERVACIONES Y FIRMA -->
+    <!-- OBSERVACIONES -->
     <details>
       <summary>Observaciones y Legales</summary>
       <textarea name="observaciones" rows="4" placeholder="Notas o condiciones especiales..."></textarea>
       <p><strong>Nota:</strong><mark> Los servicios facturados por Telekos no implican compromisos de permanencia ni penalizaciones asociadas a nuestros clientes.</mark></p>
     </details>
 
+    <!-- FIRMA -->
     <details>
       <summary>Firma Cliente</summary>
       <label>Firma electrónica del Cliente, sello empresa o Nombre y Apellidos:</label>
@@ -350,44 +349,34 @@ mark {
       </table>
       <button type="button" class="btn" id="agregarEstudio">➕ Agregar concepto</button>
       <p class="totales">Ahorro anual estimado: <span id="ahorro_anual">0.00</span> €</p>
-    
 
-
-      <!-- CUADRO AMORTIZACIÓN -->
       <h3 style="color:#004b8d; margin-top:30px;">Cuadro de Amortización</h3>
       <table id="tablaAmortizacion">
         <thead>
-          <tr>
-            <th>Concepto</th>
-            <th>Importe (€)</th>
-          </tr>
+          <tr><th>Concepto</th><th>Importe (€)</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Inversión de Equipamiento</td>
-            <td><input type="number" name="inversion_equipamiento" step="0.01" value="0"></td>
-          </tr>
-          <tr>
-            <td>Coste de Instalación y Configuración</td>
-            <td><input type="number" name="coste_instalacion_config" step="0.01" value="0"></td>
-          </tr>
-          <tr>
-            <td>Penalización en Actual Operadora</td>
-            <td><input type="number" name="penalizacion_operadora" step="0.01" value="0"></td>
-          </tr>
-          <tr>
-            <td><strong>Tiempo de Amortización (meses)</strong></td>
-            <td><input type="number" name="tiempo_amortizacion" step="1" value="0"></td>
-          </tr>
+          <tr><td>Inversión de Equipamiento</td><td><input type="number" name="inversion_equipamiento" step="0.01" value="0"></td></tr>
+          <tr><td>Coste de Instalación y Configuración</td><td><input type="number" name="coste_instalacion_config" step="0.01" value="0"></td></tr>
+          <tr><td>Penalización en Actual Operadora</td><td><input type="number" name="penalizacion_operadora" step="0.01" value="0"></td></tr>
+          <tr><td><strong>Tiempo de Amortización (meses)</strong></td><td><input type="number" name="tiempo_amortizacion" step="1" value="0"></td></tr>
         </tbody>
       </table>
-      <!-- 🔹 FIN DEL BLOQUE NUEVO -->
-
     </details>
 
-<script>
-// Referencias
-const formulario = document.getElementById("telekosForm");
+    <div style="text-align:center;">
+      <button type="submit" class="btn">📧 Enviar Formulario</button>
+      <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    </div>
+
+  </form>
+<div class="footer">
+    <p>Telekos © 2025 — <a href="https://www.telekos.com" target="_blank">www.telekos.com</a></p>
+  </div>
+
+</div>
+
+<script>const formulario = document.getElementById("telekosForm");
 const tablaServicios = document.getElementById("tablaServicios").querySelector("tbody");
 const tablaEstudio = document.getElementById("tablaEstudio").querySelector("tbody");
 const agregarBtn = document.getElementById("agregarServicio");
@@ -400,14 +389,12 @@ const instalacionEl = document.getElementById("instalacion");
 const ahorroAnualEl = document.getElementById("ahorro_anual");
 const steps = document.querySelectorAll(".step");
 
-// === FUNCIONES ===
-
-// Calcular totales
+// ==== FUNCIONES ====
 function calcularTotales() {
   let subtotal = 0;
   tablaServicios.querySelectorAll("tr").forEach(row => {
-    const cant = parseFloat(row.querySelector(".cant").value) || 0;
-    const coste = parseFloat(row.querySelector(".coste").value) || 0;
+    const cant = parseFloat(row.querySelector(".cant")?.value) || 0;
+    const coste = parseFloat(row.querySelector(".coste")?.value) || 0;
     const total = cant * coste;
     row.querySelector(".total").textContent = total.toFixed(2);
     subtotal += total;
@@ -421,44 +408,60 @@ function calcularTotales() {
   actualizarTimeline();
 }
 
-// ✅ Corregido: Calcular estudio sin bloquear inputs
 function calcularEstudio() {
   let ahorroTotalMensual = 0;
   tablaEstudio.querySelectorAll("tr").forEach(row => {
     const actualInput = row.querySelector(".gasto_actual");
     const nuevoInput = row.querySelector(".nuevo_gasto");
     const ahorroInput = row.querySelector(".ahorro_mensual");
-
-    const actual = parseFloat(actualInput.value);
-    const nuevo = parseFloat(nuevoInput.value);
-
-    // Si ambos son válidos, calcula. Si no, deja vacío.
-    if (!isNaN(actual) && !isNaN(nuevo)) {
-      const ahorro = actual - nuevo;
-      ahorroInput.value = ahorro.toFixed(2);
-      ahorroTotalMensual += ahorro;
-    } else {
-      ahorroInput.value = "";
-    }
+    const actual = parseFloat(actualInput.value) || 0;
+    const nuevo = parseFloat(nuevoInput.value) || 0;
+    const ahorro = actual - nuevo;
+    ahorroInput.value = ahorro.toFixed(2);
+    ahorroTotalMensual += ahorro;
   });
-
   const ahorroAnual = ahorroTotalMensual * 12;
   ahorroAnualEl.textContent = ahorroAnual.toFixed(2);
+  actualizarTimeline();
 }
 
-// Timeline
 function actualizarTimeline() {
+  // Paso 1: Cliente
   steps[0].classList.toggle("active", document.getElementById("empresa").value.trim() !== "");
-  steps[1].classList.toggle("active", Array.from(tablaServicios.querySelectorAll(".coste")).some(c => parseFloat(c.value) > 0));
-  steps[2].classList.toggle("active", Array.from(tablaEstudio.querySelectorAll(".gasto_actual")).some(g => g.value.trim() !== ""));
-  steps[3].classList.toggle("active", document.querySelector("textarea[name='observaciones']").value.trim() !== "");
+
+  // Paso 2: Propuesta
+  steps[1].classList.toggle(
+    "active",
+    Array.from(tablaServicios.querySelectorAll(".coste")).some(c => parseFloat(c.value) > 0)
+  );
+
+  // Paso 3: Estudio
+  steps[2].classList.toggle(
+    "active",
+    Array.from(tablaEstudio.querySelectorAll("tr")).some(row => {
+      const actual = parseFloat(row.querySelector(".gasto_actual")?.value) || 0;
+      const nuevo = parseFloat(row.querySelector(".nuevo_gasto")?.value) || 0;
+      return actual > 0 || nuevo > 0;
+    })
+  );
+
+  // Paso 4: Aprobación
+  steps[3].classList.toggle(
+    "active",
+    document.querySelector("textarea[name='observaciones']").value.trim() !== ""
+  );
+
+  // Paso 5: Instalación
   steps[4].classList.toggle("active", parseFloat(instalacionEl.value) > 0);
-  steps[5].classList.toggle("active", document.querySelector("input[name='fecha_cliente']").value.trim() !== "");
+
+  // Paso 6: Activo
+  steps[5].classList.toggle(
+    "active",
+    document.querySelector("input[name='fecha_cliente']").value.trim() !== ""
+  );
 }
 
 // === EVENTOS ===
-
-// Añadir servicio predefinido
 agregarBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
   fila.innerHTML = `
@@ -485,7 +488,6 @@ agregarBtn.addEventListener("click", () => {
   tablaServicios.appendChild(fila);
 });
 
-// Añadir servicio personalizado
 agregarServicioPersonalizadoBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
   fila.innerHTML = `
@@ -497,7 +499,6 @@ agregarServicioPersonalizadoBtn.addEventListener("click", () => {
   tablaServicios.appendChild(fila);
 });
 
-// Añadir estudio
 agregarEstudioBtn.addEventListener("click", () => {
   const fila = document.createElement("tr");
   fila.innerHTML = `
@@ -509,11 +510,8 @@ agregarEstudioBtn.addEventListener("click", () => {
   tablaEstudio.appendChild(fila);
 });
 
-// Eventos dinámicos
 tablaServicios.addEventListener("input", e => {
-  if (e.target.classList.contains("cant") || e.target.classList.contains("coste")) {
-    calcularTotales();
-  }
+  if (e.target.classList.contains("cant") || e.target.classList.contains("coste")) calcularTotales();
 });
 
 tablaServicios.addEventListener("change", e => {
@@ -546,35 +544,23 @@ document.querySelector("textarea[name='observaciones']").addEventListener("input
 document.getElementById("empresa").addEventListener("input", actualizarTimeline);
 document.querySelector("input[name='fecha_cliente']").addEventListener("input", actualizarTimeline);
 
-// ✅ Rellenar vacíos con “nulo” antes de enviar
+// RELLENA "nulo" EN VACÍOS AL ENVIAR
 formulario.addEventListener("submit", function(e) {
   const inputs = this.querySelectorAll("input, textarea, select");
   inputs.forEach(input => {
     if (input.value.trim() === "") input.value = "nulo";
   });
-
-  // Generar cuerpo de email (para FormSubmit)
   const formData = new FormData(this);
   let body = "";
-  for (let [name, value] of formData.entries()) {
-    body += `<tr><td>${name}</td><td>${value}</td></tr>`;
-  }
+  for (let [name, value] of formData.entries()) body += `<tr><td>${name}</td><td>${value}</td></tr>`;
   document.getElementById("bodyEmail").value = body;
 });
 
+// Inicializar
 calcularTotales();
 calcularEstudio();
 actualizarTimeline();
-</script>
 
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
